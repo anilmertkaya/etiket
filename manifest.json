@@ -1,0 +1,35 @@
+{
+  "name": "Etiket – Kozmetik İçerik Tarayıcı",
+  "short_name": "Etiket",
+  "description": "Kozmetik, saç ve tırnak ürünlerinin içeriğini tarar; şeffaf dikkat puanı verir.",
+  "lang": "tr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FBF7F9",
+  "theme_color": "#2A1E33",
+  "categories": [
+    "health",
+    "lifestyle",
+    "beauty"
+  ],
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#2A1E33">
+<title>Etiket</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">
+<style>
+:root{
+  --ground:#FBF7F9;--surface:#FFFFFF;--surface2:#F3EBF0;--ink:#2A1E33;--muted:#6E6178;--line:#E9DFE6;
+  --g1:#D96A8C;--g2:#8B6BC7;--trust:#4FB3A8;--grad:linear-gradient(135deg,var(--g1) 0%,#C56FA8 50%,var(--g2) 100%);
+  --good:linear-gradient(135deg,#5BB98C,#A8E0C0);--good-ink:#143D2A;
+  --warn:linear-gradient(135deg,#F2A65A,#F7C59F);--warn-ink:#4A2A00;
+  --bad:linear-gradient(135deg,#E05A6D,#F08A9A);--bad-ink:#FFFFFF;
+  --unk:linear-gradient(135deg,#A58CE0,#C9B8F0);--unk-ink:#2A1E33;
+  --nav:#2A1E33;--r:22px;--navH:72px;--navGap:18px;
+  --shadow:0 12px 28px rgba(217,106,140,.22);
+  --pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320' viewBox='0 0 320 320' fill='none' stroke='%23B07A94' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg opacity='.9'%3E%3Crect x='28' y='40' width='22' height='44' rx='6'/%3E%3Cpath d='M33 40v-8h12v8M31 60h16'/%3E%3Crect x='110' y='58' width='30' height='20' rx='5'/%3E%3Cpath d='M118 58v-10a7 7 0 0 1 14 0v10M112 70h26'/%3E%3Cpath d='M200 30h20l4 50h-28z'/%3E%3Cpath d='M206 30v-8h8v8M202 46h16'/%3E%3Ccircle cx='270' cy='70' r='16'/%3E%3Cpath d='M258 70h24M270 54v-8M262 48h16'/%3E%3Cpath d='M60 150c10-20 30-20 40 0-10 20-30 20-40 0z'/%3E%3Cpath d='M66 150h28'/%3E%3Crect x='140' y='140' width='26' height='38' rx='8'/%3E%3Cpath d='M147 140v-6h12v6M153 178v8'/%3E%3Cpath d='M230 130l6 30h-20l6-30z'/%3E%3Cpath d='M222 130h20M232 112v18'/%3E%3Cpath d='M44 240h30v34a15 15 0 0 1-30 0z'/%3E%3Cpath d='M44 240a15 15 0 0 1 30 0'/%3E%3Crect x='120' y='236' width='40' height='26' rx='13'/%3E%3Cpath d='M126 236v-10h10M150 262v8'/%3E%3Cpath d='M210 230c0 24 12 36 24 46 12-10 24-22 24-46-16 0-24 8-24 8s-8-8-24-8z'/%3E%3Cpath d='M234 276v-38'/%3E%3Ccircle cx='290' cy='150' r='4'/%3E%3Ccircle cx='20' cy='300' r='3'/%3E%3Ccircle cx='300' cy='300' r='5'/%3E%3C/g%3E%3C/svg%3E");
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--ground:#1A1220;--surface:#2A1E33;--surface2:#34263F;--ink:#F7F0F4;--muted:#BBA9C2;--line:#3E2F4A;--nav:#120B18;--unk-ink:#fff}}
+:root[data-theme="dark"]{--ground:#1A1220;--surface:#2A1E33;--surface2:#34263F;--ink:#F7F0F4;--muted:#BBA9C2;--line:#3E2F4A;--nav:#120B18;--unk-ink:#fff}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;min-width:0}
+html,body{height:100%}
+body{margin:0;background:var(--ground);background-image:var(--pattern);background-size:320px 320px;background-attachment:fixed;color:var(--ink);font-family:'Plus Jakarta Sans',system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;overflow-wrap:anywhere}
+.app{max-width:480px;margin:0 auto;min-height:100%;position:relative}
+.screen{padding:20px 20px calc(var(--navH) + var(--navGap) + 28px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:16px;animation:in .22s ease-out}
+.screen.noNav{padding-bottom:calc(28px + env(safe-area-inset-bottom,0px));min-height:100vh}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.screen{animation:none}}
+h1{margin:0;font-size:30px;line-height:1.12;font-weight:800;letter-spacing:-.9px}
+h2{margin:6px 0 0;font-size:17px;font-weight:800;letter-spacing:-.3px}
+p{margin:0;line-height:1.5}
+.muted{color:var(--muted);font-size:13px;font-weight:500;line-height:1.45}
+.small{font-size:11px;color:var(--muted);font-weight:500;text-align:center;line-height:1.45}
+.card{background:var(--surface);border-radius:var(--r);padding:16px}
+.row{display:flex;align-items:center;gap:14px}
+.between{justify-content:space-between}
+.col{display:flex;flex-direction:column;gap:3px;flex:1}
+.title{font-size:15px;font-weight:800;line-height:1.3}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:10px 16px;border-radius:999px;border:0;background:var(--surface);color:var(--ink);font:600 14px/1.2 'Plus Jakarta Sans',sans-serif;cursor:pointer;text-decoration:none;text-align:center}
+.pill.on{background:var(--grad);color:#fff;font-weight:700;box-shadow:var(--shadow)}
+.pill.sm{min-height:38px;padding:8px 12px;font-size:12px}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:58px;width:100%;padding:0 20px;border:0;border-radius:999px;background:var(--grad);color:#fff;font:800 16px/1.2 'Plus Jakarta Sans',sans-serif;cursor:pointer;box-shadow:var(--shadow);text-decoration:none;text-align:center}
+.btn.ghost{background:var(--surface);color:var(--ink);box-shadow:none}
+.btn svg{flex-shrink:0}
+:is(.btn,.pill,.icon,a,input,select,textarea,button):focus-visible{outline:3px solid #4FB3A8;outline-offset:2px}
+.icon{width:46px;height:46px;border-radius:23px;border:0;background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);flex-shrink:0;text-decoration:none;font-size:18px;font-weight:700}
+.badge{width:46px;height:46px;border-radius:23px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0;white-space:nowrap}
+.b-good{background:var(--good);color:var(--good-ink)}.b-warn{background:var(--warn);color:var(--warn-ink)}.b-bad{background:var(--bad);color:#fff}.b-unk{background:var(--unk);color:#fff}.b-none{background:var(--line);color:var(--muted)}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font-size:11px;font-weight:800;white-space:nowrap;line-height:1}
+.input{display:flex;align-items:center;gap:10px;min-height:54px;padding:6px 8px 6px 18px;border-radius:999px;background:var(--surface)}
+.input input{flex:1;border:0;outline:0;background:transparent;font:600 15px 'Plus Jakarta Sans',sans-serif;color:var(--ink);min-width:0;height:40px}
+.input .pill{flex-shrink:0}
+textarea{width:100%;min-height:120px;border:0;border-radius:18px;padding:14px;background:var(--surface);color:var(--ink);font:500 14px/1.5 'Plus Jakarta Sans',sans-serif;resize:vertical}
+select{font:700 14px 'Plus Jakarta Sans',sans-serif;border:0;background:var(--surface2);color:var(--ink);border-radius:999px;padding:8px 12px;max-width:55%}
+.hero{position:relative;overflow:hidden;border-radius:30px;padding:24px;color:#fff;background:var(--grad);box-shadow:0 16px 36px rgba(217,106,140,.28)}
+.hero .blob{position:absolute;right:-60px;bottom:-70px;width:220px;height:220px;border-radius:110px;background:#fff;opacity:.14;pointer-events:none}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{display:flex;flex-direction:column;justify-content:space-between;gap:12px;min-height:122px;padding:16px;background:var(--surface);border-radius:24px;text-decoration:none;color:inherit}
+.tile .ico{width:42px;height:42px;border-radius:21px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.list{display:flex;flex-direction:column;gap:8px}
+.item{display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--surface);border-radius:var(--r);text-decoration:none;color:inherit;border:0;width:100%;text-align:left;font-family:inherit;cursor:pointer}
+.thumb{width:50px;height:50px;border-radius:16px;background:var(--surface2);flex-shrink:0}
+.score{font-size:62px;line-height:1;font-weight:800;letter-spacing:-3px;white-space:nowrap}
+.tabs{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px;padding:6px;background:var(--surface);border-radius:999px}
+.tabs button{min-height:44px;padding:8px 6px;border:0;border-radius:999px;background:transparent;color:var(--ink);font:600 13px/1.2 'Plus Jakarta Sans',sans-serif;cursor:pointer}
+.tabs button.on{background:var(--grad);color:#fff;font-weight:800}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.note{padding:14px 16px;border-radius:18px;background:var(--surface);font-size:13px;line-height:1.5}
+.note.tint{background:var(--surface2)}
+.gtext{background:linear-gradient(90deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;color:transparent}
+nav.bar{position:fixed;left:50%;transform:translateX(-50%);width:min(100% - 32px,448px);bottom:calc(var(--navGap) + env(safe-area-inset-bottom,0px));height:var(--navH);display:grid;grid-template-columns:repeat(5,1fr);align-items:center;border-radius:999px;background:var(--nav);padding:0 8px;box-shadow:0 16px 32px rgba(42,30,51,.32);z-index:5}
+nav.bar a{height:54px;width:54px;margin:0 auto;border-radius:27px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#B9A7C4;text-decoration:none;font-size:9px;font-weight:700}
+nav.bar a.on{background:var(--grad);color:#fff}
+nav.bar:empty{display:none}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--navH) + var(--navGap) + 14px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--ground);padding:12px 18px;border-radius:999px;font-size:13px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s;z-index:9;max-width:90%;text-align:center}
+.toast.show{opacity:1}
+video{width:100%;aspect-ratio:1;object-fit:cover;border-radius:28px;background:#0B1220;display:block}
+.frame{position:relative;border-radius:28px;overflow:hidden}
+.frame .line{position:absolute;left:28px;right:28px;top:50%;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--g1),var(--g2));box-shadow:0 0 18px var(--g2)}
+.step{display:flex;gap:14px;padding:14px;background:var(--surface);border-radius:var(--r)}
+.msg{max-width:85%;padding:12px 14px;border-radius:18px;font-size:14px;line-height:1.5}
+.msg.me{align-self:flex-end;background:var(--grad);color:#fff}
+.msg.ai{align-self:flex-start;background:var(--surface)}
+label.sw{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;padding:12px 16px;background:var(--surface);border-radius:18px;font-size:15px;font-weight:700}
+label.sw input[type=checkbox]{width:24px;height:24px;accent-color:#D96A8C;flex-shrink:0}
+.star{color:#E39A3B;letter-spacing:2px}
+.toplink{display:inline-flex;align-items:center;gap:6px;color:var(--ink);text-decoration:none;font-weight:700;font-size:13px}
+.progress{display:flex;gap:6px}.progress span{width:30px;height:6px;border-radius:3px;background:var(--line)}.progress span.on{background:var(--grad)}
+.ring{flex-shrink:0}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<nav class="bar" id="nav" aria-label="Main"></nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ===================== i18n ===================== */
+const L={
+tr:{appName:"Etiket",skip:"Atla",next:"Devam",finish:"Profili tamamla",step:"ADIM",ob1t:"Cildinizi tanıyalım",ob1d:"Birden fazla seçebilirsiniz. Cilt tipiniz ve sorunlarınız, ürün eşleşmesi ve rutin önerileri için kullanılır. Hiçbir bilgi cihazınızdan çıkmaz.",name:"Adınız (isteğe bağlı)",skinType:"Cilt tipi",goals:"Cilt sorunları",ob2t:"Saçınız nasıl?",ob2d:"Birden fazla seçebilirsiniz. Saç ürünlerini değerlendirirken ve rutin oluştururken kullanılır.",ob3t:"Bilinen alerjileriniz var mı?",ob3d:"Seçtikleriniz ürünün genel puanını değiştirmez; yalnızca o bileşeni içeren ürünlerde size özel bir uyarı gösterir.",preg:"Hamile ya da emziriyorum",addAllergy:"Başka bir alerji yazın",add:"Ekle",pregD:"Riskli bileşen içeren ürünlerde ek uyarı alırsınız",pro:"Profesyonel kullanıcıyım",proD:"Salonlar için müşteri alerji notları açılır",
+skins:["Kuru","Yağlı","Karma","Hassas","Normal"],goalList:["Kuruluk","Akne","Leke","Kırışıklık","Hassasiyet / kızarıklık","Donukluk","Gözenek"],hairs:["Düz","Dalgalı","Kıvırcık","Boyalı","Yağlı saç derisi","Kuru saç derisi"],allergyList:["HEMA (jel tırnak)","Parfüm","Nikel","Lanolin","Metakrilatlar","Paraben","Formaldehit"],
+hello:"Merhaba",welcome:"Hoş geldiniz",homeT:"Bugün neyi<br>kontrol edelim?",scanT:"Ürün tara",scanD:"Barkod · Fotoğraf · Raf · İsim",routine:"Rutinim",routineD:"Sabah ve akşam adımları",nail:"Tırnak modülü",nailD:"Jel, akrilik ve oje",finder:"Ürün bulucu",finderD:"Hedefinize göre öneri",hair:"Saç laboratuvarı",hairD:"Şampuan ve bakım",recent:"Son taramalar",all:"Tümü",noScans:"Henüz tarama yok. Bir ürün tarayın ya da isimle arayın.",ask:"Asistana sor",askD:"Cilt ve içerik soruları",dayIng:"Günün bileşeni",addProduct:"Ürün ekle",
+nav:["Ana sayfa","Tara","Rutin","Sözlük","Profil"],
+tabs:["Barkod","Fotoğraf","Raf","Ara"],camOpening:"Kamera açılıyor…",camFrame:"Barkodu çerçeveye alın",camNoSupport:"Bu tarayıcı canlı barkod okumayı desteklemiyor. Barkodu aşağıya elle yazın.",camDenied:"Kamera izni verilmedi. Barkodu elle yazabilirsiniz.",barPh:"Barkodu elle girin",find:"Bul",sampleBars:"Barkod yerel listede yoksa Open Beauty Facts'ta aranır. Deneme barkodları: 8690000000011 … 8690000000127",photoNote:"Ürünün arkasındaki içerik listesini (INCI) buraya yapıştırın. Virgülle ayrılmış olmalı. Bu sürümde fotoğraftan otomatik okuma yoktur.",prodName:"Ürün adı",analyze:"İçeriği analiz et",shelfNote:"Raf tarama, aynı raftaki ürünleri yan yana karşılaştırır. Bir kategori seçin.",searchPh:"Ürün ya da marka ara",noResult:"Sonuç bulunamadı.",addIt:"Ürünü ekleyin",addItD:", anında puanlayalım.",obfLooking:"Open Beauty Facts'ta aranıyor…",notFound:"Ürün yerel listede ve Open Beauty Facts'ta bulunamadı. Eklemek ister misiniz?",emptyInci:"İçerik listesi boş",pasted:"Yapıştırılan ürün",manual:"[Elle girildi]",
+shelf:"RAF",shelfT:n=>`Rafta ${n} ürün`,shelfD:"En az dikkat gerektiren ürün en üstte.",best:"En iyi",
+whyLink:"Neden bu puan?",forYou:"Sizin için",flagged:"Dikkat gerektiren bileşenler",noFlags:"Dikkat gerektiren bileşen yok",noFlagsD:"Taradığımız kaynaklarda kısıtlama, alerjen ya da sınıflandırma bulunmadı.",claimsNail:"Etiketteki \"içermez\" iddiaları",claims:"Ürün iddiaları",contains:"(içeriyor!)",allInci:"Tüm içerik",reviews:"Yorumlar",reviewPh:"Deneyiminizi yazın: kalıcılık, uygulama, cilt tepkisi…",shareReview:"Yorumu paylaş",emptyReview:"Yorum boş",reviewSaved:"Yorum paylaşıldı",alts:n=>`Daha az dikkat gerektiren ${n} alternatif`,noAlts:"Bu kategoride daha iyi puanlı bir alternatif bulunamadı.",share:"Paylaş",copied:"Panoya kopyalandı",scoreOf:"/100",
+whyT:"Neden bu puan?",start:"Başlangıç",attention:"Dikkat puanı",whyD:"Her ürün 100 puanla başlar. Güvenilir açık kaynaklarda bulunan her uyarı, aşağıda gösterilen kadar düşer. Kaynaklar birbiriyle çelişiyorsa ortalama almıyoruz; \"belirsiz\" olarak işaretliyoruz. Yasaklı bir madde varsa puan en fazla 30 olabilir.",uncertain:"Belirsiz",bannedRow:"Yasaklı / kısıtlı madde",bannedFound:"Bulundu, yukarıda listelendi",bannedClean:"AB ve Türkiye listelerinde sorun yok",sources:"Taranan kaynaklar",report:"Yanlış ya da eksik bilgi bildir",weights:"Puan ağırlıkları başlangıç değeridir; uzman kalibrasyonuyla güncellenir.",
+ingredient:"BİLEŞEN",examples:"Bu bileşeni içeren örnek ürünler",noExamples:"Örnek yok.",
+glossaryT:"İçerik sözlüğü",glossaryD:"Her bileşen için ne işe yaradığı, dikkat uyarıları ve kaynağı.",ingPh:"Bileşen ara",filters:["Tümü","Dikkat gerektiren","Sorunsuz","Tırnak"],
+altsT:"Daha az dikkat gerektiren",altsD:s=>`Aynı kategoride (${s}), yalnızca Etiket kriterlerine göre sıralandı. Reklam ya da marka anlaşması yok.`,current:"Mevcut ürün",flagsN:n=>`${n} uyarı`,
+nailT:"Tırnak ürünleri",nailDesc:"Jel, akrilik ve oje için ayrı uyarılar: HEMA, metakrilatlar, TPO, formaldehit, toluen ve DBP.",hemaT:"HEMA uyarısı",hemaD:"Jel ürünlerde en sık görülen alerjen. AB'de yalnızca profesyonel kullanıma izinlidir. Bir kez alerji gelişirse diş dolgusu dahil tüm metakrilatlara karşı kalıcı olabilir.",clientNotes:"Müşteri alerji notları",clientD:"Müşterinizin bilinen alerjilerini kaydedin; ürün tararken otomatik uyarı alın.",clientName:"Müşteri adı",clientAllergy:"Alerji (örn. HEMA)",save:"Kaydet",noRecord:"Kayıt yok.",del:"Sil",needBoth:"Ad ve alerji gerekli",proHint:"Profesyonel misiniz? Profil ayarlarından \"Profesyonel kullanıcı\" seçeneğini açın; müşteri alerji notları burada görünür.",groups:[["Jel oje","Jel"],["Akrilik","Akrilik"],["Oje","Oje"]],
+routineT:"Rutinim",noSkin:"Cilt tipi seçilmedi",rebuilt:"Profiliniz değişince rutin yeniden oluşturulur.",am:"Sabah",pm:"Akşam",rebuild:"Profili güncelle ve yeniden oluştur",suggest:"Öneri",
+amSteps:p=>[["Temizleyici","Nazik, sülfatsız bir temizleyici"],["Serum",p.goals.includes("Leke")||p.goals.includes("Donukluk")?"Niacinamide ya da C vitamini":"Hyaluronik asit"],["Nemlendirici",p.skin.includes("Yağlı")?"Jel dokulu, gözenek tıkamayan":"Seramid içeren krem"],["Güneş koruyucu","SPF 30+ (ayrı ürün)"]],
+pmSteps:p=>[["Temizleyici","Makyaj varsa çift temizleme"],["Aktif",p.goals.includes("Akne")?"Salisilik asit (haftada 2-3)":p.goals.includes("Kırışıklık")?"Retinol (düşük dozla başlayın)":"Yatıştırıcı tonik"],["Nemlendirici","Gece için daha yoğun formül"]],
+finderT:"Hedefe göre bul",finderD:"Hedeflerinizi ve kategoriyi seçin; en az dikkat gerektiren ürünler önce gösterilir.",finderGoals:["Nem","Yatıştırma","Parlaklık","Akne","Leke"],subs:["Nemlendirici","Serum","Tonik","Şampuan"],fullMatch:"Tam eşleşme",partMatch:"Olası eşleşme",noMatch:"Eşleşmiyor",pickGoal:"Hedef seçin",
+hairT:"Saç ürünleri",noHair:"Saç tipi seçilmedi",hairDesc:"Sülfatlar, bazı koruyucular ve koku alerjenleri işaretlenir.",forHair:"saç için",
+assistant:"ASİSTAN",quick:["HEMA nedir?","Paraben zararlı mı?","Kuru cilt için ne kullanmalıyım?","Hamilelikte nelere dikkat etmeliyim?"],askPh:"Sorunuzu yazın",send:"Gönder",clearChat:"Sohbeti temizle",aiHello:"Merhaba! Cilt, saç ve içerik hakkında soru sorabilirsiniz. Bu bir bilgilendirme asistanıdır; tıbbi tavsiye vermez.",aiFallback:"Bu konuda hazır bir yanıtım yok. Sözlükte bileşeni arayabilir ya da ürünü tarayıp \"Neden bu puan?\" bölümüne bakabilirsiniz.",
+addT:"Veritabanına ekle",addD:"Olmayan ürünü ekleyin, hemen puanlayalım. Eklediğiniz ürünler yalnızca cihazınızda saklanır.",barcode:"Barkod",cats:["Jel oje","Oje","Akrilik","Nemlendirici","Serum","Tonik","Şampuan","Diğer"],inciPh:"İçerik listesi (INCI), virgülle ayrılmış",addBtn:"Ekle ve puanla",needNameInci:"Ad ve içerik gerekli",added:"Ürün eklendi",obfNote:"Açık veritabanına katkı için ürünü Open Beauty Facts'e de ekleyebilirsiniz.",userAdded:"[Kullanıcı ekledi]",
+historyT:"Taramalar",reportT:"Yanlış ya da eksik bilgi",reportD:"Bildiriminiz incelenir; doğrulanana kadar düşük ağırlıkla değerlendirilir.",reportOpts:["Uyarı yanlış","İçerik listesi eksik","Ürün adı / marka yanlış","Kaynak güncel değil"],reportPh:"Açıklama ve varsa kaynak bağlantısı",sendBtn:"Gönder",reported:"Bildirim kaydedildi",
+profileT:"Profil",user:"Kullanıcı",incomplete:"Profil tamamlanmadı",edit:"Düzenle",allergies:"Alerjiler",none:"Yok",settings:"Ayarlar",lang:"Dil",region:"Bölge mevzuatı",regionD:"Yasaklı / kısıtlı madde listesi",dark:"Koyu tema",darkD:"Sistem ayarını geçersiz kılar",proMode:"Profesyonel mod",proModeD:"Müşteri alerji notları",pregMode:"Hamile / emziriyor",pregModeD:"Riskli bileşenlerde ek uyarı",dataT:"Veri ve kaynaklar",dataD:"Verileriniz yalnızca bu cihazda saklanır. Kaynaklar: ",obf:"Open Beauty Facts verisi ODbL lisansı altındadır.",aiUrl:"Yapay zeka adresi",aiUrlD:"Cloudflare Worker adresi (boşsa yalnızca kural tabanlı yanıt)",aiPh:"https://etiket-ai.…workers.dev",aiThinking:"Düşünüyor…",aiSrc:"Yapay zeka yanıtı; bilgilendirme amaçlıdır.",deleteData:"Verilerimi sil",confirmDel:"Tüm yerel veriler silinsin mi?",version:"Etiket v1.0 · Genel bilgilendirme amaçlıdır; tıbbi tavsiye yerine geçmez. Hiçbir markayla ticari bağı yoktur.",saved:"Kaydedildi",
+effT:"Cilde etkisi",effBenefit:"Cilde faydalı",effNeutral:"Nötr (etkisiz, sorunsuz)",effCaution:"Hassas ciltte dikkat",effD:"Koruyucu ve yardımcı maddeler (ör. sodyum benzoat, fenoksietanol) nötr sayılır; puanı düşürmez. Puanı yalnızca cilt ve sağlık üzerinde bilinen etkisi olan bileşenler etkiler.",disc:"Genel bilgilendirme amaçlıdır, tıbbi tavsiye yerine geçmez.",labels:{good:"Düşük dikkat",warn:"Dikkat",high:"Yüksek dikkat",bad:"Kritik uyarı"},
+personalAllergy:(a,i)=>`Profilinizde ${a} alerjisi kayıtlı. Bu ürün ${i} içeriyor.`,personalPreg:"Hamilelik veya emzirme döneminde bu türden uyarı içeren ürünlerden kaçınmanız önerilir; doktorunuza danışın.",unknownRow:(u,n)=>`Tanınmayan madde (${u}/${n})`,unknownLbl:"Veritabanında eşleşmedi",
+},
+en:{appName:"Etiket",skip:"Skip",next:"Continue",finish:"Finish profile",step:"STEP",ob1t:"Let's get to know your skin",ob1d:"Pick as many as apply. Your skin type and concerns are used for product matching and routine suggestions. Nothing leaves your device.",name:"Your name (optional)",skinType:"Skin type",goals:"Skin concerns",ob2t:"What's your hair like?",ob2d:"Pick as many as apply. Used when checking hair products and building your routine.",ob3t:"Any known allergies?",ob3d:"Your choices never change a product's overall score. They only add a personal warning on products that contain that ingredient.",preg:"Pregnant or breastfeeding",addAllergy:"Type another allergy",add:"Add",pregD:"Extra warning on products with risky ingredients",pro:"I'm a professional",proD:"Unlocks client allergy notes for salons",
+skins:["Dry","Oily","Combination","Sensitive","Normal"],goalList:["Dryness","Acne","Dark spots","Wrinkles","Sensitivity / redness","Dullness","Pores"],hairs:["Straight","Wavy","Curly","Colored","Oily scalp","Dry scalp"],allergyList:["HEMA (gel nails)","Fragrance","Nickel","Lanolin","Methacrylates","Parabens","Formaldehyde"],
+hello:"Hello",welcome:"Welcome",homeT:"What should we<br>check today?",scanT:"Scan a product",scanD:"Barcode · Photo · Shelf · Name",routine:"My routine",routineD:"Morning and evening steps",nail:"Nail module",nailD:"Gel, acrylic and polish",finder:"Product finder",finderD:"Picks for your goals",hair:"Hair lab",hairD:"Shampoo and care",recent:"Recent scans",all:"All",noScans:"No scans yet. Scan a product or search by name.",ask:"Ask the assistant",askD:"Skin and ingredient questions",dayIng:"Ingredient of the day",addProduct:"Add product",
+nav:["Home","Scan","Routine","Glossary","Profile"],
+tabs:["Barcode","Photo","Shelf","Search"],camOpening:"Opening camera…",camFrame:"Place the barcode in the frame",camNoSupport:"This browser can't read barcodes live. Type the barcode below.",camDenied:"Camera permission was denied. You can type the barcode instead.",barPh:"Type the barcode",find:"Find",sampleBars:"Unknown barcodes are looked up on Open Beauty Facts. Sample barcodes: 8690000000011 … 8690000000127",photoNote:"Paste the ingredient list (INCI) from the back of the product, separated by commas. Automatic photo reading isn't in this version.",prodName:"Product name",analyze:"Analyze ingredients",shelfNote:"Shelf scan compares products on the same shelf side by side. Pick a category.",searchPh:"Search a product or brand",noResult:"No results.",addIt:"Add the product",addItD:" and we'll score it right away.",obfLooking:"Searching Open Beauty Facts…",notFound:"Not found locally or on Open Beauty Facts. Want to add it?",emptyInci:"Ingredient list is empty",pasted:"Pasted product",manual:"[Entered manually]",
+shelf:"SHELF",shelfT:n=>`${n} products on the shelf`,shelfD:"The product needing the least attention is on top.",best:"Best",
+whyLink:"Why this score?",forYou:"For you",flagged:"Ingredients to watch",noFlags:"Nothing to watch",noFlagsD:"We found no restrictions, allergens or classifications in the sources we check.",claimsNail:"\"Free-from\" claims on the label",claims:"Product claims",contains:"(it's inside!)",allInci:"Full ingredient list",reviews:"Reviews",reviewPh:"Share your experience: wear time, application, skin reaction…",shareReview:"Post review",emptyReview:"Review is empty",reviewSaved:"Review posted",alts:n=>`${n} alternatives needing less attention`,noAlts:"No better-scoring alternative found in this category.",share:"Share",copied:"Copied to clipboard",scoreOf:"/100",
+whyT:"Why this score?",start:"Starts at",attention:"Attention score",whyD:"Every product starts at 100. Each warning found in trusted public sources lowers the score by the amount shown below. When sources disagree we don't average them; we mark the item \"uncertain\". If a banned ingredient is present, the score can't go above 30.",uncertain:"Uncertain",bannedRow:"Banned / restricted ingredient",bannedFound:"Found, listed above",bannedClean:"Clear in EU and Turkish lists",sources:"Sources checked",report:"Report wrong or missing info",weights:"Point weights are starting values and are tuned with expert calibration.",
+ingredient:"INGREDIENT",examples:"Example products with this ingredient",noExamples:"No examples.",
+glossaryT:"Ingredient glossary",glossaryD:"What each ingredient does, what to watch for, and where the info comes from.",ingPh:"Search ingredients",filters:["All","Needs attention","Clear","Nails"],
+altsT:"Needing less attention",altsD:s=>`Same category (${s}), ranked only by Etiket criteria. No ads or brand deals.`,current:"Current product",flagsN:n=>`${n} warnings`,
+nailT:"Nail products",nailDesc:"Separate warnings for gel, acrylic and polish: HEMA, methacrylates, TPO, formaldehyde, toluene and DBP.",hemaT:"HEMA warning",hemaD:"The most common allergen in gel products. In the EU it's allowed for professional use only. Once an allergy develops it can be permanent and extend to all methacrylates, including dental fillings.",clientNotes:"Client allergy notes",clientD:"Save your clients' known allergies and get an automatic warning when you scan a product.",clientName:"Client name",clientAllergy:"Allergy (e.g. HEMA)",save:"Save",noRecord:"No records.",del:"Delete",needBoth:"Name and allergy are required",proHint:"Are you a professional? Turn on \"Professional mode\" in profile settings to see client allergy notes here.",groups:[["Jel oje","Gel"],["Akrilik","Acrylic"],["Oje","Polish"]],
+routineT:"My routine",noSkin:"No skin type selected",rebuilt:"The routine is rebuilt whenever your profile changes.",am:"Morning",pm:"Evening",rebuild:"Update profile and rebuild",suggest:"Pick",
+amSteps:p=>[["Cleanser","A gentle, sulfate-free cleanser"],["Serum",p.goals.includes("Leke")||p.goals.includes("Donukluk")?"Niacinamide or vitamin C":"Hyaluronic acid"],["Moisturizer",p.skin.includes("Yağlı")?"Gel texture, non-comedogenic":"A cream with ceramides"],["Sunscreen","SPF 30+ (separate product)"]],
+pmSteps:p=>[["Cleanser","Double cleanse if you wear makeup"],["Active",p.goals.includes("Akne")?"Salicylic acid (2-3x a week)":p.goals.includes("Kırışıklık")?"Retinol (start low)":"A soothing toner"],["Moisturizer","A richer formula for night"]],
+finderT:"Find by goal",finderD:"Pick your goals and a category; products needing the least attention come first.",finderGoals:["Hydration","Soothing","Glow","Acne","Dark spots"],subs:["Moisturizer","Serum","Toner","Shampoo"],fullMatch:"Full match",partMatch:"Possible match",noMatch:"No match",pickGoal:"Pick a goal",
+hairT:"Hair products",noHair:"No hair type selected",hairDesc:"Sulfates, certain preservatives and fragrance allergens are flagged.",forHair:"hair",
+assistant:"ASSISTANT",quick:["What is HEMA?","Are parabens harmful?","What should I use for dry skin?","What to avoid when pregnant?"],askPh:"Type your question",send:"Send",clearChat:"Clear chat",aiHello:"Hi! Ask me about skin, hair and ingredients. I'm an information assistant and don't give medical advice.",aiFallback:"I don't have a ready answer for that. Try the glossary, or scan the product and open \"Why this score?\".",
+addT:"Add to the database",addD:"Add a product we don't have yet and we'll score it instantly. Added products stay on your device.",barcode:"Barcode",cats:["Gel polish","Polish","Acrylic","Moisturizer","Serum","Toner","Shampoo","Other"],inciPh:"Ingredient list (INCI), separated by commas",addBtn:"Add and score",needNameInci:"Name and ingredients are required",added:"Product added",obfNote:"To help the open database, you can also add the product to Open Beauty Facts.",userAdded:"[User added]",
+historyT:"Scans",reportT:"Wrong or missing info",reportD:"Your report is reviewed and weighted low until verified.",reportOpts:["Warning is wrong","Ingredient list incomplete","Name / brand is wrong","Source is outdated"],reportPh:"Details and a source link if you have one",sendBtn:"Send",reported:"Report saved",
+profileT:"Profile",user:"User",incomplete:"Profile incomplete",edit:"Edit",allergies:"Allergies",none:"None",settings:"Settings",lang:"Language",region:"Regulation region",regionD:"Banned / restricted list used",dark:"Dark theme",darkD:"Overrides the system setting",proMode:"Professional mode",proModeD:"Client allergy notes",pregMode:"Pregnant / breastfeeding",pregModeD:"Extra warning on risky ingredients",dataT:"Data and sources",dataD:"Your data stays on this device only. Sources: ",obf:"Open Beauty Facts data is under the ODbL license.",aiUrl:"AI endpoint",aiUrlD:"Cloudflare Worker URL (leave empty for rule-based answers only)",aiPh:"https://etiket-ai.…workers.dev",aiThinking:"Thinking…",aiSrc:"AI answer; for information only.",deleteData:"Delete my data",confirmDel:"Delete all local data?",version:"Etiket v1.0 · For general information only; not medical advice. No commercial ties to any brand.",saved:"Saved",
+effT:"Effect on skin",effBenefit:"Good for skin",effNeutral:"Neutral (no effect, no concern)",effCaution:"Caution for sensitive skin",effD:"Preservatives and helper ingredients (e.g. sodium benzoate, phenoxyethanol) count as neutral and never lower the score. Only ingredients with a known effect on skin or health move the score.",disc:"For general information only; not medical advice.",labels:{good:"Low attention",warn:"Attention",high:"High attention",bad:"Critical warning"},
+personalAllergy:(a,i)=>`Your profile lists a ${a} allergy. This product contains ${i}.`,personalPreg:"During pregnancy or breastfeeding it's advisable to avoid products with this kind of warning; ask your doctor.",unknownRow:(u,n)=>`Unrecognized ingredients (${u}/${n})`,unknownLbl:"Not matched in database",
+}};
+/* Kategori adları ve seçenekler iç veride Türkçe anahtarla tutulur; görünür ad dilden gelir */
+const SUBN={tr:{"Jel oje":"Jel oje","Oje":"Oje","Akrilik":"Akrilik","Nemlendirici":"Nemlendirici","Serum":"Serum","Tonik":"Tonik","Şampuan":"Şampuan","Diğer":"Diğer"},en:{"Jel oje":"Gel polish","Oje":"Polish","Akrilik":"Acrylic","Nemlendirici":"Moisturizer","Serum":"Serum","Tonik":"Toner","Şampuan":"Shampoo","Diğer":"Other"}};
+const sub=s=>SUBN[lang][s]||s;
+const PNAME={tr:{p1:"Jel oje · Bordo 14",p2:"Jel oje · HEMA içermeyen Kırmızı",p3:"Klasik oje · Şarap",p4:"Klasik oje · 7-free Bordo",p5:"Akrilik likit (monomer)",p6:"Akrilik likit · ekonomik",p7:"Nemlendirici krem",p8:"Nemlendirici krem · kokulu",p9:"Hyaluronik serum",p10:"Tonik · arındırıcı",p11:"Şampuan · besleyici",p12:"Şampuan · derin temizlik"},
+en:{p1:"Gel polish · Burgundy 14",p2:"Gel polish · HEMA-free Red",p3:"Classic polish · Wine",p4:"Classic polish · 7-free Burgundy",p5:"Acrylic liquid (monomer)",p6:"Acrylic liquid · budget",p7:"Moisturizing cream",p8:"Moisturizing cream · scented",p9:"Hyaluronic serum",p10:"Toner · clarifying",p11:"Shampoo · nourishing",p12:"Shampoo · deep clean"}};
+const pname=p=>PNAME[lang][p.id]||p.name;
+
+/* ===================== VERİ ===================== */
+const ING={
+ "AQUA":{name:"Aqua (Water)",fn:["Çözücü","Solvent"],flags:[],eff:"neutral"},
+ "SODIUM BENZOATE":{name:"Sodium Benzoate",fn:["Koruyucu","Preservative"],flags:[],eff:"neutral",note:["Gıdada da kullanılan, AB'de izinli bir koruyucu. Normal kullanımda cilt için sorun oluşturmaz.","A preservative also used in food, allowed in the EU. No skin concern at normal use."]},
+ "POTASSIUM SORBATE":{name:"Potassium Sorbate",fn:["Koruyucu","Preservative"],flags:[],eff:"neutral"},
+ "BENZYL ALCOHOL":{name:"Benzyl Alcohol",fn:["Koruyucu, çözücü","Preservative, solvent"],flags:["allergen26"],eff:"neutral",note:["Düşük oranda koruyucu; AB 26 listesinde olduğu için etikette yazılır. Çoğu cilt için sorunsuz.","Low-level preservative; listed in the EU 26 so it must appear on the label. Fine for most skin."]},
+ "CITRIC ACID":{name:"Citric Acid",fn:["pH ayarlayıcı","pH adjuster"],flags:[],eff:"neutral"},
+ "TOCOPHEROL":{name:"Tocopherol (E vitamini)",fn:["Antioksidan","Antioxidant"],flags:[],eff:"benefit"},
+ "ALLANTOIN":{name:"Allantoin",fn:["Yatıştırıcı","Soothing"],flags:[],eff:"benefit"},
+ "CAPRYLIC/CAPRIC TRIGLYCERIDE":{name:"Caprylic/Capric Triglyceride",fn:["Yumuşatıcı","Emollient"],flags:[],eff:"neutral"},
+ "XANTHAN GUM":{name:"Xanthan Gum",fn:["Kıvam verici","Thickener"],flags:[],eff:"neutral"},
+ "ETHYLHEXYLGLYCERIN":{name:"Ethylhexylglycerin",fn:["Koruyucu destek, nemlendirici","Preservative booster, humectant"],flags:[],eff:"neutral"},
+
+ "GLYCERIN":{name:"Glycerin",fn:["Nemlendirici","Humectant"],eff:"benefit",flags:[],note:["AB listelerinde kısıtlama yok.","No restriction in EU lists."]},
+ "NIACINAMIDE":{name:"Niacinamide",fn:["Cilt bariyerini destekler","Supports the skin barrier"],eff:"benefit",flags:[],note:["B3 vitamini türevi.","A form of vitamin B3."]},
+ "HYALURONIC ACID":{name:"Hyaluronic Acid",fn:["Nemlendirici","Humectant"],eff:"benefit",flags:[]},
+ "SODIUM HYALURONATE":{name:"Sodium Hyaluronate",fn:["Nemlendirici","Humectant"],eff:"benefit",flags:[]},
+ "CERAMIDE NP":{name:"Ceramide NP",fn:["Bariyer onarımı","Barrier repair"],eff:"benefit",flags:[]},
+ "PANTHENOL":{name:"Panthenol",fn:["Yatıştırıcı","Soothing"],eff:"benefit",flags:[]},
+ "SQUALANE":{name:"Squalane",fn:["Yumuşatıcı","Emollient"],eff:"benefit",flags:[]},
+ "DIMETHICONE":{name:"Dimethicone",fn:["Yumuşatıcı, film oluşturucu","Emollient, film former"],eff:"neutral",flags:[]},
+ "PHENOXYETHANOL":{name:"Phenoxyethanol",fn:["Koruyucu","Preservative"],eff:"neutral",flags:[],note:["AB'de %1'e kadar izinli.","Allowed in the EU up to 1%."]},
+ "PARFUM":{name:"Parfum (Fragrance)",fn:["Koku","Scent"],eff:"caution",flags:["fragrance"],note:["Bir karışımdır; alerjenler ayrıca listelenmelidir.","A mixture; allergens must be listed separately."]},
+ "LINALOOL":{name:"Linalool",fn:["Koku bileşeni","Fragrance component"],eff:"caution",flags:["allergen26"]},
+ "LIMONENE":{name:"Limonene",fn:["Koku bileşeni","Fragrance component"],eff:"caution",flags:["allergen26"]},
+ "CITRONELLOL":{name:"Citronellol",fn:["Koku bileşeni","Fragrance component"],eff:"caution",flags:["allergen26"]},
+ "ALCOHOL DENAT.":{name:"Alcohol Denat.",fn:["Çözücü, kurutabilir","Solvent, can be drying"],eff:"caution",flags:["drying"]},
+ "SODIUM LAURYL SULFATE":{name:"Sodium Lauryl Sulfate (SLS)",fn:["Köpürtücü","Foaming agent"],eff:"caution",flags:["irritant"]},
+ "METHYLISOTHIAZOLINONE":{name:"Methylisothiazolinone (MI)",fn:["Koruyucu","Preservative"],eff:"caution",flags:["sensitizer","restricted"],note:["AB'de durulanmayan ürünlerde yasak, durulananlarda kısıtlı.","Banned in EU leave-on products, restricted in rinse-off."]},
+ "BUTYLPARABEN":{name:"Butylparaben",fn:["Koruyucu","Preservative"],eff:"neutral",flags:["restricted","edc_uncertain"],note:["AB'de konsantrasyon sınırı var.","Concentration limit in the EU."]},
+ "FORMALDEHYDE":{name:"Formaldehyde",fn:["Sertleştirici (tırnak)","Hardener (nails)"],flags:["cmr1","banned"],note:["AB kozmetikte yasaklı.","Banned in EU cosmetics."]},
+ "TOLUENE":{name:"Toluene",fn:["Çözücü (oje)","Solvent (polish)"],flags:["cmr2","restricted"],note:["AB'de tırnak ürünlerinde sınırlı ve uyarı etiketi zorunlu.","Limited in EU nail products, warning label required."]},
+ "DIBUTYL PHTHALATE":{name:"Dibutyl Phthalate (DBP)",fn:["Plastikleştirici","Plasticizer"],flags:["cmr1","banned"],note:["AB kozmetikte yasaklı.","Banned in EU cosmetics."]},
+ "TRIPHENYL PHOSPHATE":{name:"Triphenyl Phosphate (TPHP)",fn:["Plastikleştirici","Plasticizer"],eff:"neutral",flags:["edc_uncertain"],note:["Hormon etkisi üzerine kaynaklar çelişiyor.","Sources disagree on hormonal effects."]},
+ "HEMA":{name:"HEMA (2-Hydroxyethyl Methacrylate)",fn:["Jel/akrilik monomer","Gel/acrylic monomer"],eff:"caution",flags:["nail_allergen","sensitizer"],note:["Cilt hassaslaştırıcı; jel tırnakta en sık alerjen. AB'de yalnızca profesyonel kullanım.","Skin sensitizer; the most common gel-nail allergen. EU: professional use only."]},
+ "DI-HEMA TRIMETHYLHEXYL DICARBAMATE":{name:"Di-HEMA Trimethylhexyl Dicarbamate",fn:["Jel oligomer","Gel oligomer"],eff:"caution",flags:["nail_allergen","sensitizer"],note:["AB'de yalnızca profesyonel kullanım.","EU: professional use only."]},
+ "ETHYL METHACRYLATE":{name:"Ethyl Methacrylate (EMA)",fn:["Akrilik monomer","Acrylic monomer"],eff:"caution",flags:["methacrylate","sensitizer"]},
+ "METHYL METHACRYLATE":{name:"Methyl Methacrylate (MMA)",fn:["Akrilik monomer","Acrylic monomer"],flags:["methacrylate","banned_nail"],note:["Birçok ülkede tırnak ürünlerinde yasak ya da kısıtlı.","Banned or restricted in nail products in many countries."]},
+ "NITROCELLULOSE":{name:"Nitrocellulose",fn:["Film oluşturucu (oje)","Film former (polish)"],eff:"neutral",flags:[]},
+ "ETHYL ACETATE":{name:"Ethyl Acetate",fn:["Çözücü (oje)","Solvent (polish)"],eff:"neutral",flags:["drying"]},
+ "BUTYL ACETATE":{name:"Butyl Acetate",fn:["Çözücü (oje)","Solvent (polish)"],eff:"neutral",flags:["drying"]},
+ "CI 15850":{name:"CI 15850 (Red 6/7)",fn:["Renk","Colorant"],eff:"neutral",flags:[]},
+ "CI 77891":{name:"CI 77891 (Titanium Dioxide)",fn:["Renk","Colorant"],eff:"neutral",flags:[]},
+ "BENZOPHENONE-1":{name:"Benzophenone-1",fn:["UV filtresi (oje)","UV filter (polish)"],eff:"neutral",flags:["edc_uncertain"]},
+ "TRIMETHYLBENZOYL DIPHENYLPHOSPHINE OXIDE":{name:"TPO (photoinitiator)",fn:["UV ile sertleşme","UV curing"],flags:["cmr1b_recent"],note:["AB'de 2025'ten itibaren kozmetikte yasaklandı.","Banned in EU cosmetics from 2025."]},
+ "COCAMIDOPROPYL BETAINE":{name:"Cocamidopropyl Betaine",fn:["Köpürtücü","Foaming agent"],eff:"neutral",flags:[]},
+ "ARGANIA SPINOSA KERNEL OIL":{name:"Argan Oil",fn:["Besleyici (saç)","Nourishing (hair)"],eff:"benefit",flags:[]},
+ "SILICA":{name:"Silica",fn:["Doku, matlaştırıcı","Texture, mattifier"],eff:"neutral",flags:[]},
+};
+const RULES={
+ banned:{d:70,l:["Yasaklı madde (AB/TR)","Banned ingredient (EU/TR)"],src:"EU CosIng Annex II · TİTCK",cls:"bad",cap:30},
+ cmr1:{d:25,l:["Kanserojen/üreme toksik sınıf 1","CMR class 1"],src:"ECHA CLP",cls:"bad"},
+ cmr1b_recent:{d:25,l:["CMR 1B (yeni yasak)","CMR 1B (newly banned)"],src:"EU 2025 update",cls:"bad"},
+ cmr2:{d:12,l:["CMR sınıf 2 (şüpheli)","CMR class 2 (suspected)"],src:"ECHA CLP",cls:"warn"},
+ restricted:{d:10,l:["Kısıtlı madde","Restricted ingredient"],src:"EU CosIng Annex III/V",cls:"warn"},
+ banned_nail:{d:20,l:["Tırnakta yasak/kısıtlı","Banned/restricted in nails"],src:"National regulations",cls:"bad"},
+ nail_allergen:{d:10,l:["Tırnak alerjeni","Nail allergen"],src:"ECHA · EU CosIng",cls:"warn"},
+ methacrylate:{d:6,l:["Metakrilat (kontakt dermatit)","Methacrylate (contact dermatitis)"],src:"ECHA",cls:"warn"},
+ sensitizer:{d:0,l:["Hassaslaştırıcı","Sensitizer"],src:"ECHA CLP",cls:"warn"},
+ allergen26:{d:8,l:["AB 26 koku alerjeni","EU 26 fragrance allergen"],src:"EU 1223/2009",cls:"warn"},
+ fragrance:{d:3,l:["Koku karışımı","Fragrance mixture"],src:"EU 1223/2009",cls:"warn"},
+ edc_uncertain:{d:5,l:["Hormon etkisi şüphesi (belirsiz)","Suspected hormone effect (uncertain)"],src:"Sources disagree",cls:"unk"},
+ irritant:{d:4,l:["Tahriş edebilir","May irritate"],src:"CIR",cls:"warn"},
+ drying:{d:2,l:["Kurutucu","Drying"],src:"General literature",cls:"none"},
+};
+const PRODUCTS=[
+ {id:"p1",bar:"8690000000011",name:"Jel oje · Bordo 14",brand:"[BRAND]",cat:"nail",sub:"Jel oje",inci:["DI-HEMA TRIMETHYLHEXYL DICARBAMATE","HEMA","TRIMETHYLBENZOYL DIPHENYLPHOSPHINE OXIDE","CI 15850","PARFUM","LINALOOL","SILICA","Pigment Blend"],claims:["Formaldehyde-free","Toluene-free","DBP-free"]},
+ {id:"p2",bar:"8690000000028",name:"Jel oje · HEMA-free Kırmızı",brand:"[BRAND]",cat:"nail",sub:"Jel oje",inci:["DI-HEMA TRIMETHYLHEXYL DICARBAMATE","ETHYL ACETATE","CI 15850","SILICA"],claims:["HEMA-free"]},
+ {id:"p3",bar:"8690000000035",name:"Klasik oje · Şarap",brand:"[BRAND]",cat:"nail",sub:"Oje",inci:["BUTYL ACETATE","ETHYL ACETATE","NITROCELLULOSE","TOLUENE","DIBUTYL PHTHALATE","CI 15850","BENZOPHENONE-1"],claims:[]},
+ {id:"p4",bar:"8690000000042",name:"Klasik oje · 7-free Bordo",brand:"[BRAND]",cat:"nail",sub:"Oje",inci:["BUTYL ACETATE","ETHYL ACETATE","NITROCELLULOSE","CI 15850","SILICA"],claims:["7-free"]},
+ {id:"p5",bar:"8690000000059",name:"Akrilik likit (monomer)",brand:"[BRAND]",cat:"nail",sub:"Akrilik",inci:["ETHYL METHACRYLATE","HEMA"],claims:["MMA-free"]},
+ {id:"p6",bar:"8690000000066",name:"Akrilik likit · ekonomik",brand:"[BRAND]",cat:"nail",sub:"Akrilik",inci:["METHYL METHACRYLATE","ETHYL METHACRYLATE"],claims:[]},
+ {id:"p7",bar:"8690000000073",name:"Nemlendirici krem",brand:"[BRAND]",cat:"skin",sub:"Nemlendirici",inci:["AQUA","GLYCERIN","NIACINAMIDE","CERAMIDE NP","SQUALANE","PANTHENOL","SODIUM BENZOATE","POTASSIUM SORBATE","CITRIC ACID","TOCOPHEROL"],claims:["Fragrance-free"]},
+ {id:"p8",bar:"8690000000080",name:"Nemlendirici krem · kokulu",brand:"[BRAND]",cat:"skin",sub:"Nemlendirici",inci:["AQUA","GLYCERIN","DIMETHICONE","PARFUM","LINALOOL","LIMONENE","CITRONELLOL","PHENOXYETHANOL","BUTYLPARABEN"],claims:[]},
+ {id:"p9",bar:"8690000000097",name:"Hyaluronik serum",brand:"[BRAND]",cat:"skin",sub:"Serum",inci:["AQUA","SODIUM HYALURONATE","GLYCERIN","PANTHENOL","PHENOXYETHANOL"],claims:[]},
+ {id:"p10",bar:"8690000000103",name:"Tonik · arındırıcı",brand:"[BRAND]",cat:"skin",sub:"Tonik",inci:["AQUA","ALCOHOL DENAT.","NIACINAMIDE","PARFUM","LIMONENE"],claims:[]},
+ {id:"p11",bar:"8690000000110",name:"Şampuan · besleyici",brand:"[BRAND]",cat:"hair",sub:"Şampuan",inci:["AQUA","COCAMIDOPROPYL BETAINE","ARGANIA SPINOSA KERNEL OIL","GLYCERIN","PHENOXYETHANOL","PARFUM","LINALOOL"],claims:["Sulfate-free"]},
+ {id:"p12",bar:"8690000000127",name:"Şampuan · derin temizlik",brand:"[BRAND]",cat:"hair",sub:"Şampuan",inci:["AQUA","SODIUM LAURYL SULFATE","PARFUM","LIMONENE","METHYLISOTHIAZOLINONE"],claims:[]},
+];
+const SOURCES=["Open Beauty Facts","EU CosIng","TİTCK","ECHA CLP","IARC","PubChem"];
+const CLAIMMAP={"FORMALDEHYDE":["Formaldeh","formaldeh"],"TOLUENE":["Toluen","toluen"],"DIBUTYL PHTHALATE":["DBP","dbp"],"HEMA":["HEMA"],"METHYL METHACRYLATE":["MMA"],"PARFUM":["Parfüm","Fragrance","parfüm"],"SODIUM LAURYL SULFATE":["Sülfat","Sulfate"]};
+
+
+/* ===================== OPEN BEAUTY FACTS ===================== */
+const OBF="https://world.openbeautyfacts.org/api/v2/product/";
+async function fetchOBF(code){
+  try{const r=await fetch(OBF+encodeURIComponent(code)+".json?fields=product_name,brands,ingredients_text,categories_tags,image_front_small_url");
+    if(!r.ok)return null;const j=await r.json();if(j.status!==1||!j.product)return null;const P=j.product;
+    const text=P.ingredients_text||"";if(!text.trim())return null;
+    const inci=text.split(/[,;]/).map(x=>x.replace(/[\[\]()*.]/g,"").trim()).filter(Boolean);
+    const cats=(P.categories_tags||[]).join(" ");const cat=/nail|tirnak|oje/i.test(cats)||inci.some(i=>/METHACRYLATE|HEMA|NITROCELLULOSE/i.test(i))?"nail":/shampoo|hair|sac/i.test(cats)?"hair":"skin";
+    const s=cat==="nail"?(/gel/i.test(cats+(P.product_name||""))?"Jel oje":"Oje"):cat==="hair"?"Şampuan":/serum/i.test(cats)?"Serum":/toner|tonik/i.test(cats)?"Tonik":/moistur|cream|krem/i.test(cats)?"Nemlendirici":"Diğer";
+    return{id:"obf"+code,bar:code,name:P.product_name||code,brand:P.brands||"",cat,sub:s,inci,claims:[],img:P.image_front_small_url||"",src:"Open Beauty Facts",custom:true}}catch(e){return null}}
+/* ===================== DURUM ===================== */
+const S={get(k,d){try{const v=localStorage.getItem("etiket:"+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem("etiket:"+k,JSON.stringify(v))}catch(e){}}};
+let profile=S.get("profile",{name:"",skin:[],goals:[],hair:[],allergies:[],pregnant:false,pro:false,done:false,region:"TR",lang:(navigator.language||"tr").startsWith("tr")?"tr":"en"});
+if(typeof profile.skin==="string")profile.skin=[profile.skin];if(!Array.isArray(profile.skin))profile.skin=[];if(typeof profile.hair==="string")profile.hair=[profile.hair];if(!Array.isArray(profile.hair))profile.hair=[];
+let lang=profile.lang||"tr"; const t=k=>L[lang][k];
+let scans=S.get("history",[]),reviews=S.get("reviews",{}),customProducts=S.get("custom",[]),clients=S.get("clients",[]);
+customProducts.forEach(c=>{if(!PRODUCTS.find(p=>p.id===c.id))PRODUCTS.push(c)});
+const li=lang==="tr"?0:1; const LI=()=>lang==="tr"?0:1;
+const toast=m=>{const el=document.getElementById("toast");el.textContent=m;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),1900)};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const I={
+ home:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>',
+ scan:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7V5a1 1 0 0 1 1-1h2M17 4h2a1 1 0 0 1 1 1v2M20 17v2a1 1 0 0 1-1 1h-2M7 20H5a1 1 0 0 1-1-1v-2M7 12h10"/></svg>',
+ routine:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+ book:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h12a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3z"/><path d="M8 8h7M8 12h7"/></svg>',
+ user:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>',
+ back:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
+ arrow:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+ chev:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B9A7C4" stroke-width="2" aria-hidden="true" style="flex-shrink:0"><path d="M9 5l7 7-7 7"/></svg>',
+ check:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>',
+ warn:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v4M12 17h.01"/></svg>',
+ nail:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A1120" stroke-width="2" aria-hidden="true"><path d="M12 3c4 0 6 6 6 11a6 6 0 0 1-12 0c0-5 2-11 6-11z"/></svg>',
+ hair:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><path d="M6 20c0-8 2-14 6-14s6 6 6 14M9 20c0-5 1-9 3-9s3 4 3 9"/></svg>',
+ chat:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#064E3B" stroke-width="2" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/></svg>',
+ search:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="flex-shrink:0"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>',
+ plus:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
+ x:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+ shareI:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M12 15V3M7 8l5-5 5 5"/></svg>',
+};
+const topbar=(title,right="")=>`<div class="row between"><button class="icon" aria-label="Back" onclick="history.back()">${I.back}</button><span class="tag" style="background:var(--surface);color:var(--muted);height:40px;padding:0 16px;font-size:12px;letter-spacing:.5px">${esc(title)}</span>${right||'<span style="width:46px"></span>'}</div>`;
+const CELLI={good:I.check,warn:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M12 6v8M12 18h.01"/></svg>',bad:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',unk:"?",none:"·"};
+const cell=r=>`<span class="badge b-${r.cls}" role="img" aria-label="${r.label||r.cls}">${CELLI[r.cls]||""}</span>`;
+const badge=(r)=>cell(r);
+const disc=()=>`<p class="small">${t("disc")}</p>`;
+const nav=cur=>{document.getElementById("nav").innerHTML=cur===null?"":[["home",I.home],["scan",I.scan],["routine",I.routine],["glossary",I.book],["profile",I.user]].map(([r,i],k)=>`<a href="#/${r}" class="${cur===r?'on':''}" aria-label="${t("nav")[k]}">${i}</a>`).join("")};
+const rlabel=r=>r.l?r.l[LI()]:r.label;
+
+/* ===================== PUANLAMA ===================== */
+function scoreProduct(p,prof){
+  let score=100,items=[],unknown=0,cap=100;const seen=new Set();
+  p.inci.forEach(raw=>{const key=raw.toUpperCase().trim();const ing=ING[key];if(!ing){unknown++;return}
+    ing.flags.forEach(f=>{const r=RULES[f];if(!r||seen.has(key+f))return;seen.add(key+f);if(r.d>0){score-=r.d;items.push({ing:ing.name,key,rule:r,d:r.d})}if(r.cap)cap=Math.min(cap,r.cap)})});
+  const unkPct=Math.round(unknown/p.inci.length*100),unkD=Math.floor(unkPct/10)*3;
+  if(unkD){score-=unkD;items.push({ing:t("unknownRow")(unknown,p.inci.length),key:null,rule:{label:t("unknownLbl"),src:"Etiket",cls:"none"},d:unkD})}
+  score=Math.max(0,Math.min(score,cap));
+  const lab=t("labels");const [label,cls]=score>=85?[lab.good,"good"]:score>=65?[lab.warn,"warn"]:score>=40?[lab.high,"warn"]:[lab.bad,"bad"];
+  const personal=[];const AL={"HEMA":["HEMA"],"Parfüm":["fragrance","allergen26"],"Fragrance":["fragrance","allergen26"],"Nikel":[],"Nickel":[],"Lanolin":["LANOLIN"],"Metakrilatlar":["methacrylate","nail_allergen"],"Methacrylates":["methacrylate","nail_allergen"],"Paraben":["PARABEN"],"Parabens":["PARABEN"],"Formaldehit":["FORMALDEHYDE"],"Formaldehyde":["FORMALDEHYDE"]};
+  (prof.allergies||[]).forEach(a=>{const base=a.split(" (")[0];const keys=AL[base]||[base.toUpperCase()];const hit=p.inci.find(i=>{const k=i.toUpperCase(),ing=ING[k];return keys.some(x=>k.includes(x)||(ing&&ing.flags.includes(x)))});if(hit)personal.push(t("personalAllergy")(base,ING[hit.toUpperCase()]?.name||hit))});
+  if(prof.pregnant&&items.some(i=>i.rule.cls==="bad"))personal.push(t("personalPreg"));
+  const claims=(p.claims||[]).map(c=>{const k=Object.keys(CLAIMMAP).find(k=>CLAIMMAP[k].some(w=>c.includes(w)));if(!k)return{c,ok:null};return{c,ok:!p.inci.some(i=>i.toUpperCase()===k)}});
+  if(p.cat==="nail"){["FORMALDEHYDE","TOLUENE","DIBUTYL PHTHALATE"].forEach(k=>{if(!claims.some(c=>CLAIMMAP[k].some(w=>c.c.includes(w))))claims.push({c:ING[k].name.split(" (")[0],ok:!p.inci.some(i=>i.toUpperCase()===k),auto:true})})}
+  const eff={benefit:[],neutral:[],caution:[]};p.inci.forEach(i=>{const g=ING[i.toUpperCase().trim()];if(g&&g.eff)eff[g.eff].push(g.name)});
+  return{score,label,cls,items,personal,claims,unknown,eff};
+}
+const alternatives=(p,prof)=>{const b=scoreProduct(p,prof).score;return PRODUCTS.filter(x=>x.id!==p.id&&x.cat===p.cat&&x.sub===p.sub).map(x=>({p:x,r:scoreProduct(x,prof)})).filter(x=>x.r.score>b).sort((a,b)=>b.r.score-a.r.score)};
+
+/* ===================== EKRANLAR ===================== */
+const V={};
+V.onboarding=(step=1)=>{step=+step||1;nav(null);
+  const bars=[1,2,3].map(i=>`<span class="${i<=step?'on':''}"></span>`).join("");
+  const chips=(arr,sel,cb)=>`<div class="chips">${arr.map((s,i)=>`<button class="pill ${sel(i)?'on':''}" onclick="${cb(i)}">${esc(s)}</button>`).join("")}</div>`;
+  const TR=L.tr;let body="";
+  if(step===1)body=`<h1>${t("ob1t")}</h1><p class="muted">${t("ob1d")}</p><div class="input"><input id="nm" placeholder="${t("name")}" value="${esc(profile.name)}"></div>
+    <h2>${t("skinType")}</h2>${chips(t("skins"),i=>profile.skin.includes(TR.skins[i]),i=>`saveName();tg(profile.skin,'${TR.skins[i]}');V.onboarding(1)`)}
+    <h2>${t("goals")}</h2>${chips(t("goalList"),i=>profile.goals.includes(TR.goalList[i]),i=>`saveName();tg(profile.goals,'${TR.goalList[i]}');V.onboarding(1)`)}`;
+  if(step===2)body=`<h1>${t("ob2t")}</h1><p class="muted">${t("ob2d")}</p>${chips(t("hairs"),i=>profile.hair.includes(TR.hairs[i]),i=>`tg(profile.hair,'${TR.hairs[i]}');V.onboarding(2)`)}`;
+  if(step===3)body=`<h1>${t("ob3t")}</h1><p class="muted">${t("ob3d")}</p>${chips(t("allergyList"),i=>profile.allergies.includes(TR.allergyList[i]),i=>`tg(profile.allergies,'${TR.allergyList[i]}');V.onboarding(3)`)}
+    ${profile.allergies.filter(a=>!TR.allergyList.includes(a)).length?`<div class="chips">${profile.allergies.filter(a=>!TR.allergyList.includes(a)).map(a=>`<button class="pill on" onclick="tg(profile.allergies,'${esc(a)}');V.onboarding(3)">${esc(a)} ✕</button>`).join("")}</div>`:""}
+    <div class="input"><input id="cal" placeholder="${t("addAllergy")}" onkeydown="if(event.key==='Enter')addAllergy()"><button class="pill on sm" onclick="addAllergy()">${t("add")}</button></div>
+    <label class="sw"><span class="col"><span>${t("preg")}</span><span class="muted">${t("pregD")}</span></span><input type="checkbox" ${profile.pregnant?'checked':''} onchange="profile.pregnant=this.checked"></label>
+    <label class="sw"><span class="col"><span>${t("pro")}</span><span class="muted">${t("proD")}</span></span><input type="checkbox" ${profile.pro?'checked':''} onchange="profile.pro=this.checked"></label>`;
+  render(`<div class="screen noNav"><div class="row between"><div class="progress">${bars}</div><div class="row" style="gap:8px"><button class="pill sm" onclick="setLang('${lang==='tr'?'en':'tr'}','onboarding/${step}')">${lang==='tr'?'EN':'TR'}</button><button class="pill sm" onclick="finish()">${t("skip")}</button></div></div>
+    <span class="gtext" style="font-size:12px;font-weight:800;letter-spacing:1.5px">${t("step")} ${step} / 3</span>${body}<div style="flex:1;min-height:12px"></div>
+    <button class="btn" onclick="${step<3?`saveName();V.onboarding(${step+1})`:'finish()'}">${step<3?t("next"):t("finish")}${I.arrow}</button>${disc()}</div>`)};
+window.addAllergy=()=>{const i=document.getElementById('cal');const v=i.value.trim().replace(/['"<>]/g,'');if(!v)return;if(!profile.allergies.includes(v))profile.allergies.push(v);V.onboarding(3)};
+window.tg=(arr,v)=>{const i=arr.indexOf(v);i>=0?arr.splice(i,1):arr.push(v)};
+window.saveName=()=>{const n=document.getElementById("nm");if(n)profile.name=n.value.trim()};
+window.finish=()=>{saveName();profile.done=true;S.set("profile",profile);location.hash="#/home"};
+window.setLang=(l,back)=>{lang=l;profile.lang=l;S.set("profile",profile);document.documentElement.lang=l;if(back){const [r,...a]=back.split("/");V[r](...a)}else route()};
+
+V.home=()=>{nav("home");const recent=scans.slice(0,3).map(id=>PRODUCTS.find(p=>p.id===id)).filter(Boolean);const g=ING["NIACINAMIDE"];
+  render(`<div class="screen">
+    <div class="row between"><div class="row" style="gap:12px"><span class="badge" style="background:var(--grad);color:#fff">${esc((profile.name||"E")[0].toUpperCase())}</span><span class="col"><span class="muted">${t("hello")}</span><span class="title">${esc(profile.name||t("welcome"))}</span></span></div><a class="icon" href="#/add" aria-label="${t("addProduct")}">${I.plus}</a></div>
+    <h1>${t("homeT")}</h1>
+    <a href="#/scan" class="hero" style="text-decoration:none;display:flex;flex-direction:column;justify-content:space-between;min-height:170px"><span class="blob"></span><span class="badge" style="background:#fff;color:var(--g1);align-self:flex-end">${I.scan}</span><span class="col"><span style="font-size:26px;font-weight:800;letter-spacing:-.6px">${t("scanT")}</span><span style="font-size:13px;font-weight:600;opacity:.9">${t("scanD")}</span></span></a>
+    <div class="grid2">
+      <a class="tile" href="#/routine"><span class="ico" style="background:var(--good);color:#064E3B">${I.routine}</span><span class="col"><span class="title">${t("routine")}</span><span class="muted">${t("routineD")}</span></span></a>
+      <a class="tile" href="#/nail"><span class="ico" style="background:linear-gradient(135deg,#F08A9A,#F7C59F)">${I.nail}</span><span class="col"><span class="title">${t("nail")}</span><span class="muted">${t("nailD")}</span></span></a>
+      <a class="tile" href="#/finder"><span class="ico" style="background:var(--warn);color:#4A2A00">${I.search}</span><span class="col"><span class="title">${t("finder")}</span><span class="muted">${t("finderD")}</span></span></a>
+      <a class="tile" href="#/hair"><span class="ico" style="background:var(--unk)">${I.hair}</span><span class="col"><span class="title">${t("hair")}</span><span class="muted">${t("hairD")}</span></span></a>
+    </div>
+    <div class="row between"><h2>${t("recent")}</h2><a href="#/history" class="toplink">${t("all")}</a></div>
+    <div class="list">${recent.length?recent.map(p=>{const r=scoreProduct(p,profile);return `<a class="item" href="#/product/${p.id}"><span class="thumb" style="${p.img?`background:url(${esc(p.img)}) center/cover`:``}"></span><span class="col"><span class="title">${esc(pname(p))}</span><span class="muted">${r.items.length?t("flagsN")(r.items.length):t("noFlags")}</span></span>${badge(r)}</a>`}).join(""):`<div class="note tint">${t("noScans")}</div>`}</div>
+    <a class="item" href="#/assistant"><span class="badge" style="background:var(--good)">${I.chat}</span><span class="col"><span class="title">${t("ask")}</span><span class="muted">${t("askD")}</span></span>${I.chev}</a>
+    <div class="card"><span class="muted">${t("dayIng")}</span><a href="#/ingredient/NIACINAMIDE" class="title" style="display:block;text-decoration:none;color:inherit;margin-top:4px">${g.name}</a><p class="muted" style="margin-top:4px">${g.fn[LI()]}. ${g.note?g.note[LI()]:""}</p></div>
+  </div>`)};
+
+let stream=null;
+V.scan=(mode="bar")=>{nav("scan");stopCam();const T=t("tabs");let body="";
+  if(mode==="bar")body=`<div class="frame"><video id="cam" playsinline muted autoplay></video><span class="line"></span></div><p class="muted" id="camMsg" style="text-align:center">${t("camOpening")}</p>
+    <div class="input"><input id="bc" inputmode="numeric" placeholder="${t("barPh")}" onkeydown="if(event.key==='Enter')lookupBar()"><button class="pill on sm" onclick="lookupBar()">${t("find")}</button></div><p class="small">${t("sampleBars")}</p>`;
+  if(mode==="photo")body=`<div class="note tint">${t("photoNote")}</div><div class="input"><input id="pn" placeholder="${t("prodName")}"></div><textarea id="ocr" placeholder="AQUA, GLYCERIN, NIACINAMIDE, PARFUM, LINALOOL…"></textarea><button class="btn" onclick="analyzeText()">${t("analyze")}${I.arrow}</button>`;
+  if(mode==="shelf")body=`<div class="note tint">${t("shelfNote")}</div><div class="chips">${["Jel oje","Oje","Akrilik","Nemlendirici","Şampuan"].map(s=>`<a class="pill" href="#/shelf/${encodeURIComponent(s)}">${sub(s)}</a>`).join("")}</div>`;
+  if(mode==="search")body=`<div class="input">${I.search}<input id="q" placeholder="${t("searchPh")}" oninput="searchList(this.value)"></div><div class="list" id="res">${searchHTML("")}</div>`;
+  render(`<div class="screen"><div class="row between"><a class="icon" href="#/home" aria-label="Close">${I.x}</a><span class="tag" style="background:var(--grad);color:#fff;height:40px;padding:0 18px;letter-spacing:1px">${t("nav")[1].toUpperCase()}</span><span style="width:46px"></span></div>
+    <div class="tabs">${["bar","photo","shelf","search"].map((k,i)=>`<button class="${mode===k?'on':''}" onclick="V.scan('${k}')">${T[i]}</button>`).join("")}</div>${body}</div>`);
+  if(mode==="bar")startCam();if(mode==="search")document.getElementById("q")?.focus()};
+function searchHTML(q){q=q.toLowerCase();return PRODUCTS.filter(p=>!q||pname(p).toLowerCase().includes(q)||p.name.toLowerCase().includes(q)||sub(p.sub).toLowerCase().includes(q)).slice(0,20).map(p=>{const r=scoreProduct(p,profile);return `<a class="item" href="#/product/${p.id}"><span class="thumb" style="${p.img?`background:url(${esc(p.img)}) center/cover`:``}"></span><span class="col"><span class="title">${esc(pname(p))}</span><span class="muted">${esc(sub(p.sub))} · ${esc(p.brand)}</span></span>${badge(r)}</a>`}).join("")||`<div class="note tint">${t("noResult")} <a href="#/add">${t("addIt")}</a>${t("addItD")}</div>`}
+window.searchList=q=>{document.getElementById("res").innerHTML=searchHTML(q)};
+window.lookupBar=async code=>{code=code||document.getElementById("bc").value.trim();if(!code)return;const p=PRODUCTS.find(x=>x.bar===code);if(p){location.hash="#/product/"+p.id;return}
+  toast(t("obfLooking"));const q=await fetchOBF(code);if(q){if(!PRODUCTS.find(x=>x.id===q.id)){PRODUCTS.push(q);customProducts.push(q);S.set("custom",customProducts)}location.hash="#/product/"+q.id}else{toast(t("notFound"));location.hash="#/add?bar="+code}};
+window.analyzeText=()=>{const txt=document.getElementById("ocr").value,name=document.getElementById("pn").value.trim()||t("pasted");if(!txt.trim())return toast(t("emptyInci"));const inci=txt.split(/[,;\n]/).map(s=>s.trim()).filter(Boolean);const cat=inci.some(i=>/METHACRYLATE|HEMA|NITROCELLULOSE/i.test(i))?"nail":"skin";const p={id:"c"+Date.now(),bar:"",name,brand:t("manual"),cat,sub:cat==="nail"?"Jel oje":"Diğer",inci,claims:[],custom:true};PRODUCTS.push(p);customProducts.push(p);S.set("custom",customProducts);location.hash="#/product/"+p.id};
+async function startCam(){const v=document.getElementById("cam"),m=document.getElementById("camMsg");if(!v)return;
+  try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});v.srcObject=stream;
+    if("BarcodeDetector"in window){const det=new BarcodeDetector({formats:["ean_13","ean_8","upc_a","code_128"]});m.textContent=t("camFrame");const loop=async()=>{if(!stream)return;try{const c=await det.detect(v);if(c.length){lookupBar(c[0].rawValue);return}}catch(e){}requestAnimationFrame(loop)};loop()}
+    else m.textContent=t("camNoSupport")}catch(e){m.textContent=t("camDenied")}}
+function stopCam(){if(stream){stream.getTracks().forEach(x=>x.stop());stream=null}}
+
+V.shelf=s=>{nav("scan");const list=PRODUCTS.filter(p=>p.sub===s).map(p=>({p,r:scoreProduct(p,profile)})).sort((a,b)=>b.r.score-a.r.score);
+  render(`<div class="screen">${topbar(t("shelf")+" · "+sub(s).toUpperCase())}<h1>${t("shelfT")(list.length)}</h1><p class="muted">${t("shelfD")}</p>
+  <div class="list">${list.map(({p,r},i)=>`<a class="item" href="#/product/${p.id}">${cell(r)}<span class="col"><span class="title">${esc(pname(p))}</span><span class="muted">${r.items.length?t("flagsN")(r.items.length)+" · "+esc(rlabel(r.items[0].rule)):t("noFlags")}</span></span>${i===0?`<span class="tag" style="background:var(--good);color:var(--good-ink)">${t("best")}</span>`:I.chev}</a>`).join("")}</div>${disc()}</div>`)};
+
+V.product=id=>{nav("scan");const p=PRODUCTS.find(x=>x.id===id);if(!p)return V.home();
+  scans=[id,...scans.filter(h=>h!==id)].slice(0,30);S.set("history",scans);
+  const r=scoreProduct(p,profile),alts=alternatives(p,profile),rv=reviews[id]||[];
+  const bg={good:"linear-gradient(135deg,#5BB98C,#A8E0C0)",warn:"linear-gradient(135deg,#F2A65A 0%,#F7C59F 60%,#F6B8C4 100%)",bad:"linear-gradient(135deg,#E05A6D,#F08A9A)"}[r.cls];
+  const ink={good:"#143D2A",warn:"#4A2A00",bad:"#fff"}[r.cls];const dash=Math.round(226*r.score/100);
+  render(`<div class="screen">${topbar(sub(p.sub),`<button class="icon" aria-label="${t("share")}" onclick="share('${p.id}')">${I.shareI}</button>`)}
+    <div class="hero" style="background:${bg};color:${ink};box-shadow:none"><span class="blob"></span><span class="col"><span style="font-size:12px;font-weight:800;opacity:.75">${esc(p.brand)}${p.src?' · '+esc(p.src):''}</span><span style="font-size:23px;font-weight:800;letter-spacing:-.5px;line-height:1.2">${esc(pname(p))}</span></span>
+      <div class="row between" style="align-items:flex-end;margin-top:18px;gap:10px"><span class="col" style="gap:10px;flex:1"><span class="score">${r.score}<span style="font-size:18px;font-weight:700;letter-spacing:0;opacity:.75">${t("scoreOf")}</span></span><span class="tag" style="background:${ink};color:${r.cls==='bad'?'#9F1239':'#FFF6EC'};align-self:flex-start">${r.label}</span></span>
+      <svg class="ring" width="84" height="84" viewBox="0 0 84 84" role="img" aria-label="${r.score}"><circle cx="42" cy="42" r="36" fill="none" stroke="${ink}" stroke-opacity=".18" stroke-width="8"/><circle cx="42" cy="42" r="36" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-dasharray="${dash} 226" transform="rotate(-90 42 42)"/></svg></div>
+      <a href="#/why/${p.id}" class="pill sm" style="margin-top:16px;background:rgba(255,255,255,.22);color:${ink};align-self:flex-start;backdrop-filter:blur(4px)">${t("whyLink")}${I.arrow}</a></div>
+    ${r.personal.map(x=>`<div class="card row"><span class="badge b-bad">${I.warn}</span><span class="col"><span class="title">${t("forYou")}</span><span class="muted">${esc(x)}</span></span></div>`).join("")}
+    <h2>${t("effT")}</h2><div class="card" style="display:flex;flex-direction:column;gap:10px">
+      <div class="row"><span class="badge b-good">${I.check}</span><span class="col"><span class="title">${t("effBenefit")} · ${r.eff.benefit.length}</span><span class="muted">${r.eff.benefit.slice(0,4).join(", ")||"–"}</span></span></div>
+      <div class="row"><span class="badge b-none">·</span><span class="col"><span class="title">${t("effNeutral")} · ${r.eff.neutral.length}</span><span class="muted">${r.eff.neutral.slice(0,4).join(", ")||"–"}</span></span></div>
+      <div class="row"><span class="badge b-warn">${CELLI.warn}</span><span class="col"><span class="title">${t("effCaution")} · ${r.eff.caution.length}</span><span class="muted">${r.eff.caution.slice(0,4).join(", ")||"–"}</span></span></div>
+      <p class="muted" style="font-size:12px">${t("effD")}</p></div>
+    ${r.items.length?`<h2>${t("flagged")}</h2><div class="list">${r.items.filter(i=>i.key).map(i=>`<a class="item" href="#/ingredient/${encodeURIComponent(i.key)}"><span class="badge b-${i.rule.cls}">−${i.d}</span><span class="col"><span class="title">${esc(i.ing)}</span><span class="muted">${esc(rlabel(i.rule))} · ${esc(i.rule.src)}</span></span>${I.chev}</a>`).join("")}</div>`:`<div class="card row"><span class="badge b-good">${I.check}</span><span class="col"><span class="title">${t("noFlags")}</span><span class="muted">${t("noFlagsD")}</span></span></div>`}
+    ${r.claims.length?`<h2>${p.cat==="nail"?t("claimsNail"):t("claims")}</h2><div class="chips">${r.claims.map(c=>`<span class="tag" style="min-height:42px;padding:0 14px;background:${c.ok===false?'var(--bad)':c.ok?'var(--good)':'var(--surface2)'};color:${c.ok===false?'#fff':c.ok?'var(--good-ink)':'var(--muted)'}">${c.ok===false?I.x:I.check} ${esc(c.c)}${c.ok===false?' '+t("contains"):''}</span>`).join("")}</div>`:""}
+    <h2>${t("allInci")} (${p.inci.length})</h2><div class="card"><p class="muted" style="font-size:12px">${p.inci.map(i=>ING[i.toUpperCase()]?`<a href="#/ingredient/${encodeURIComponent(i.toUpperCase())}" style="color:inherit">${esc(i)}</a>`:`<span style="opacity:.6">${esc(i)}</span>`).join(", ")}</p></div>
+    <h2>${t("reviews")} (${rv.length})</h2><div class="list">${rv.map(x=>`<div class="card"><span class="star">${"★".repeat(x.s)}${"☆".repeat(5-x.s)}</span><p style="font-size:14px;margin-top:6px">${esc(x.t)}</p></div>`).join("")}
+      <div class="card"><div class="chips" id="stars">${[1,2,3,4,5].map(n=>`<button class="pill sm ${n<=curStar?'on':''}" onclick="setStar(${n})">${n}★</button>`).join("")}</div><textarea id="rt" style="margin-top:10px;min-height:76px" placeholder="${t("reviewPh")}"></textarea><button class="btn ghost" style="min-height:48px;margin-top:10px" onclick="addReview('${p.id}')">${t("shareReview")}</button></div></div>
+    ${alts.length?`<a class="btn" href="#/alternatives/${p.id}">${t("alts")(alts.length)}${I.arrow}</a>`:`<div class="note tint">${t("noAlts")}</div>`}${disc()}</div>`)};
+let curStar=5;window.setStar=n=>{curStar=n;[...document.querySelectorAll("#stars button")].forEach((b,i)=>b.classList.toggle("on",i<n))};
+window.addReview=id=>{const x=document.getElementById("rt").value.trim();if(!x)return toast(t("emptyReview"));(reviews[id]=reviews[id]||[]).unshift({s:curStar,t:x});S.set("reviews",reviews);toast(t("reviewSaved"));V.product(id)};
+window.share=id=>{const p=PRODUCTS.find(x=>x.id===id),r=scoreProduct(p,profile);const txt=`${pname(p)}: Etiket ${r.score}/100 (${r.label})`;if(navigator.share)navigator.share({text:txt}).catch(()=>{});else{navigator.clipboard?.writeText(txt);toast(t("copied"))}};
+
+V.why=id=>{nav("scan");const p=PRODUCTS.find(x=>x.id===id);if(!p)return V.home();const r=scoreProduct(p,profile);
+  render(`<div class="screen">${topbar(t("whyT").toUpperCase())}<h1>${t("whyT")}</h1>
+    <div class="card row between" style="background:linear-gradient(135deg,#2A1E33,#4A3560);color:#fff;gap:8px"><span class="col" style="flex:1"><span style="font-size:12px;color:#D9CCE0;font-weight:700">${t("start")}</span><span style="font-size:30px;font-weight:800">100</span></span><span class="badge" style="background:var(--grad);color:#fff">${I.arrow}</span><span class="col" style="flex:1;text-align:right;align-items:flex-end"><span style="font-size:12px;color:#D9CCE0;font-weight:700">${t("attention")}</span><span style="font-size:30px;font-weight:800">${r.score}</span></span></div>
+    <p class="muted">${t("whyD")}</p>
+    <div class="list">${r.items.map(i=>`<div class="item"><span class="badge b-${i.rule.cls}">−${i.d}</span><span class="col"><span class="title">${esc(i.ing)}</span><span class="muted">${esc(rlabel(i.rule))} · ${esc(i.rule.src)}</span>${i.rule.cls==='unk'?`<span class="tag" style="background:#EFE8F8;color:#4A2E7A;align-self:flex-start;margin-top:6px">${t("uncertain")}</span>`:''}</span></div>`).join("")}
+      <div class="item"><span class="badge b-good">0</span><span class="col"><span class="title">${t("bannedRow")}</span><span class="muted">${r.items.some(i=>i.rule.cls==='bad')?t("bannedFound"):t("bannedClean")}</span></span></div></div>
+    <h2>${t("sources")}</h2><div class="chips">${SOURCES.map(s=>`<span class="pill sm">${s}</span>`).join("")}</div>
+    <a class="btn ghost" href="#/report/${p.id}">${t("report")}</a><p class="small">${t("weights")}</p></div>`)};
+
+V.ingredient=key=>{nav("glossary");key=decodeURIComponent(key).toUpperCase();const g=ING[key];if(!g)return V.glossary();
+  const flags=g.flags.map(f=>RULES[f]).filter(Boolean);const inP=PRODUCTS.filter(p=>p.inci.some(i=>i.toUpperCase()===key)).slice(0,5);
+  const effTag=g.eff?`<span class="tag" style="align-self:flex-start;background:${g.eff==='benefit'?'var(--good)':g.eff==='caution'?'var(--warn)':'var(--surface2)'};color:${g.eff==='benefit'?'var(--good-ink)':g.eff==='caution'?'var(--warn-ink)':'var(--muted)'}">${t(g.eff==='benefit'?'effBenefit':g.eff==='caution'?'effCaution':'effNeutral')}</span>`:"";
+  render(`<div class="screen">${topbar(t("ingredient"))}<h1 style="font-size:25px">${esc(g.name)}</h1><p class="muted">${esc(g.fn[LI()])}</p>${effTag}
+    ${flags.length?`<div class="list">${flags.map(f=>`<div class="item"><span class="badge b-${f.cls}">${f.d?'−'+f.d:'!'}</span><span class="col"><span class="title">${esc(rlabel(f))}</span><span class="muted">${esc(f.src)}</span></span></div>`).join("")}</div>`:`<div class="card row"><span class="badge b-good">${I.check}</span><span class="col"><span class="title">${t("noFlags")}</span><span class="muted">${t("noFlagsD")}</span></span></div>`}
+    ${g.note?`<div class="note tint">${esc(g.note[LI()])}</div>`:""}
+    <h2>${t("examples")}</h2><div class="list">${inP.map(p=>{const r=scoreProduct(p,profile);return `<a class="item" href="#/product/${p.id}"><span class="thumb" style="${p.img?`background:url(${esc(p.img)}) center/cover`:``}"></span><span class="col"><span class="title">${esc(pname(p))}</span><span class="muted">${esc(sub(p.sub))}</span></span>${badge(r)}</a>`}).join("")||`<div class="note tint">${t("noExamples")}</div>`}</div>${disc()}</div>`)};
+
+let glFilter=0;
+V.glossary=()=>{nav("glossary");glFilter=0;render(`<div class="screen"><h1>${t("glossaryT")}</h1><p class="muted">${t("glossaryD")}</p><div class="input">${I.search}<input id="gq" placeholder="${t("ingPh")}" oninput="gl()"></div>
+  <div class="chips" id="gf">${t("filters").map((f,i)=>`<button class="pill sm ${i===0?'on':''}" onclick="glFilter=${i};[...this.parentNode.children].forEach(x=>x.classList.toggle('on',x===this));gl()">${f}</button>`).join("")}</div><div class="list" id="gl"></div></div>`);gl()};
+window.gl=()=>{const q=(document.getElementById("gq")?.value||"").toLowerCase();let keys=Object.keys(ING).filter(k=>ING[k].name.toLowerCase().includes(q)||k.toLowerCase().includes(q));const bad=k=>ING[k].flags.some(f=>RULES[f]&&RULES[f].d>0);
+  if(glFilter===1)keys=keys.filter(bad);if(glFilter===2)keys=keys.filter(k=>!bad(k));if(glFilter===3)keys=keys.filter(k=>/METHACRYL|HEMA|NITROCELL|TOLUENE|PHTHALATE|FORMALD|ACETATE|BENZOPHEN|TRIMETHYLBENZOYL/.test(k));
+  keys.sort((a,b)=>ING[a].name.localeCompare(ING[b].name));
+  document.getElementById("gl").innerHTML=keys.map(k=>{const g=ING[k];const w=g.flags.map(f=>RULES[f]).filter(r=>r&&r.d>0);const cls=w.some(r=>r.cls==='bad')?'bad':w.some(r=>r.cls==='unk')?'unk':w.length?'warn':'good';return `<a class="item" href="#/ingredient/${encodeURIComponent(k)}">${cell({cls})}<span class="col"><span class="title">${esc(g.name)}</span><span class="muted">${esc(g.fn[LI()])}</span></span>${I.chev}</a>`}).join("")||`<div class="note tint">${t("noResult")}</div>`};
+
+V.alternatives=id=>{nav("scan");const p=PRODUCTS.find(x=>x.id===id);if(!p)return V.home();const alts=alternatives(p,profile),base=scoreProduct(p,profile);
+  render(`<div class="screen">${topbar(t("altsT").toUpperCase())}<h1>${t("altsT")}</h1><p class="muted">${t("altsD")(sub(p.sub))}</p>
+    <div class="card row">${cell(base)}<span class="col"><span class="title">${esc(pname(p))}</span><span class="muted">${t("current")} · ${t("flagsN")(base.items.length)}</span></span></div>
+    <div class="list">${alts.map(({p:x,r})=>`<a class="item" href="#/product/${x.id}">${cell(r)}<span class="col"><span class="title">${esc(pname(x))}</span><span class="muted">${r.items.length?t("flagsN")(r.items.length)+" · "+r.items.map(i=>i.ing.split(" ")[0]).join(", "):t("noFlags")}</span></span>${I.chev}</a>`).join("")}</div>${disc()}</div>`)};
+
+const clientsHTML=()=>clients.map((c,i)=>`<div class="item"><span class="badge b-warn">${esc((c.n[0]||"?").toUpperCase())}</span><span class="col"><span class="title">${esc(c.n)}</span><span class="muted">${esc(c.a)}</span></span><button class="pill sm" onclick="clients.splice(${i},1);S.set('clients',clients);V.nail()">${t("del")}</button></div>`).join("")||`<div class="note tint">${t("noRecord")}</div>`;
+V.nail=()=>{nav("home");render(`<div class="screen">${topbar(t("nail").toUpperCase())}<h1>${t("nailT")}</h1><p class="muted">${t("nailDesc")}</p>
+    <div class="card" style="background:linear-gradient(135deg,#F08A9A,#F7C59F);color:#3B0A14"><span class="title">${t("hemaT")}</span><p style="font-size:13px;margin-top:6px;line-height:1.5">${t("hemaD")}</p></div>
+    ${profile.pro?`<div class="card"><span class="title">${t("clientNotes")}</span><p class="muted" style="margin-top:4px">${t("clientD")}</p><div style="display:flex;flex-direction:column;gap:8px;margin-top:12px"><div class="input"><input id="cn" placeholder="${t("clientName")}"></div><div class="input"><input id="ca" placeholder="${t("clientAllergy")}"><button class="pill on sm" onclick="addClient()">${t("save")}</button></div></div><div class="list" style="margin-top:10px">${clientsHTML()}</div></div>`:`<div class="note tint">${t("proHint")}</div>`}
+    ${t("groups").map(([s,l])=>`<h2>${l}</h2><div class="list">${PRODUCTS.filter(p=>p.sub===s).map(p=>{const r=scoreProduct(p,profile);return `<a class="item" href="#/product/${p.id}">${cell(r)}<span class="col"><span class="title">${esc(pname(p))}</span><span class="muted">${r.items.length?r.items.map(i=>i.ing.split(" ")[0]).slice(0,3).join(", "):t("noFlags")}</span></span>${I.chev}</a>`}).join("")}</div>`).join("")}${disc()}</div>`)};
+window.addClient=()=>{const n=document.getElementById("cn").value.trim(),a=document.getElementById("ca").value.trim();if(!n||!a)return toast(t("needBoth"));clients.push({n,a});S.set("clients",clients);V.nail()};
+
+V.routine=()=>{nav("routine");const pick=s=>PRODUCTS.filter(p=>p.sub===s).map(p=>({p,r:scoreProduct(p,profile)})).sort((a,b)=>b.r.score-a.r.score)[0];
+  const map={Serum:"Serum",Nemlendirici:"Nemlendirici",Moisturizer:"Nemlendirici",Aktif:"Tonik",Active:"Tonik"};
+  const list=steps=>steps.map(([ttl,d],i)=>{const s=map[ttl];const best=s?pick(s):null;return `<div class="step"><span class="badge" style="background:var(--grad);color:#fff">${i+1}</span><span class="col"><span class="title">${ttl}</span><span class="muted">${d}</span>${best?`<a href="#/product/${best.p.id}" class="toplink" style="margin-top:6px">${t("suggest")}: ${esc(pname(best.p))} · ${best.r.score}</a>`:""}</span></div>`}).join("");
+  const skinName=profile.skin.length?profile.skin.map(s=>t("skins")[L.tr.skins.indexOf(s)]).join(", "):null;const goalNames=profile.goals.map(g=>t("goalList")[L.tr.goalList.indexOf(g)]).filter(Boolean);
+  render(`<div class="screen"><h1>${t("routineT")}</h1><p class="muted">${skinName||t("noSkin")}${goalNames.length?" · "+goalNames.join(", "):""}. ${t("rebuilt")}</p>
+    <div class="tabs" style="grid-template-columns:1fr 1fr"><button class="on" onclick="rt('am',this)">${t("am")}</button><button onclick="rt('pm',this)">${t("pm")}</button></div>
+    <div class="list" id="am">${list(t("amSteps")(profile))}</div><div class="list" id="pm" style="display:none">${list(t("pmSteps")(profile))}</div>
+    <a class="btn ghost" href="#/onboarding/1">${t("rebuild")}</a>${disc()}</div>`)};
+window.rt=(k,b)=>{[...b.parentNode.children].forEach(x=>x.classList.toggle("on",x===b));document.getElementById("am").style.display=k==="am"?"":"none";document.getElementById("pm").style.display=k==="pm"?"":"none"};
+
+V.finder=()=>{nav("home");const TRG=L.tr.finderGoals,TRS=L.tr.subs;
+  render(`<div class="screen">${topbar(t("finder").toUpperCase())}<h1>${t("finderT")}</h1><p class="muted">${t("finderD")}</p>
+    <div class="chips" id="fg">${t("finderGoals").map((g,i)=>`<button class="pill ${profile.goals.includes(TRG[i])?'on':''}" data-k="${TRG[i]}" onclick="this.classList.toggle('on');fl()">${g}</button>`).join("")}</div>
+    <div class="chips" id="fs">${t("subs").map((s,i)=>`<button class="pill" data-k="${TRS[i]}" onclick="[...this.parentNode.children].forEach(x=>x.classList.remove('on'));this.classList.add('on');fl()">${s}</button>`).join("")}</div>
+    <div class="list" id="fr"></div>${disc()}</div>`);fl()};
+window.fl=()=>{const s=document.querySelector("#fs .on")?.dataset.k;const goals=[...document.querySelectorAll("#fg .on")].map(b=>b.dataset.k);const wants={Nem:["GLYCERIN","HYALURON","SQUALANE","CERAMIDE"],Kuruluk:["GLYCERIN","HYALURON","SQUALANE","CERAMIDE"],Yatıştırma:["PANTHENOL","NIACINAMIDE","CERAMIDE"],"Hassasiyet / kızarıklık":["PANTHENOL","CERAMIDE"],Parlaklık:["NIACINAMIDE"],Donukluk:["NIACINAMIDE"],Akne:["NIACINAMIDE"],Leke:["NIACINAMIDE"],Gözenek:["NIACINAMIDE"]};
+  const list=PRODUCTS.filter(p=>p.cat!=="nail"&&(!s||p.sub===s)).map(p=>{const r=scoreProduct(p,profile);const fit=goals.filter(g=>(wants[g]||[]).some(w=>p.inci.some(i=>i.toUpperCase().includes(w)))).length;return{p,r,fit}}).sort((a,b)=>b.fit-a.fit||b.r.score-a.r.score);
+  document.getElementById("fr").innerHTML=list.map(({p,r,fit})=>`<a class="item" href="#/product/${p.id}">${cell(r)}<span class="col"><span class="title">${esc(pname(p))}</span><span class="muted">${esc(sub(p.sub))} · ${goals.length?(fit===goals.length?t("fullMatch"):fit?t("partMatch"):t("noMatch")):t("pickGoal")}</span></span>${I.chev}</a>`).join("")||`<div class="note tint">${t("noResult")}</div>`};
+
+V.hair=()=>{nav("home");const list=PRODUCTS.filter(p=>p.cat==="hair").map(p=>({p,r:scoreProduct(p,profile)})).sort((a,b)=>b.r.score-a.r.score);const hn=profile.hair.length?profile.hair.map(s=>t("hairs")[L.tr.hairs.indexOf(s)]).join(", "):null;
+  render(`<div class="screen">${topbar(t("hair").toUpperCase())}<h1>${t("hairT")}</h1><p class="muted">${hn?hn+" "+t("forHair"):t("noHair")}. ${t("hairDesc")}</p>
+    <div class="list">${list.map(({p,r})=>`<a class="item" href="#/product/${p.id}">${cell(r)}<span class="col"><span class="title">${esc(pname(p))}</span><span class="muted">${r.items.length?r.items.map(i=>i.ing.split(" ")[0]).slice(0,3).join(", "):t("noFlags")}</span></span>${I.chev}</a>`).join("")}</div>${disc()}</div>`)};
+
+const FAQ={tr:[[/hema/i,"HEMA, jel ve akrilik tırnakta kullanılan bir monomerdir. ECHA'ya göre cilt hassaslaştırıcıdır ve jel tırnakta en sık görülen alerjendir. AB'de yalnızca profesyonel kullanıma izinlidir. Alerjiniz varsa HEMA içermeyen ürünlere bakın ve ürünün cilde değmemesine dikkat edin."],[/paraben/i,"Parabenler koruyucudur. Metil ve etil paraben AB'de serbestçe izinli; bütil ve propil paraben için konsantrasyon sınırı vardır. Etiket, sınırlı parabenleri \"kısıtlı madde\" olarak gösterir."],[/parf[uü]m|koku/i,"\"Parfum\" bir karışımdır; AB'de 26 koku alerjeni ayrıca listelenmek zorundadır. Hassas cilt için kokusuz ürün önerilir."],[/kuru/i,"Kuru cilt için glycerin, hyaluronik asit, seramid ve squalane içeren ürünler iyi gelir; alkol ve sülfat içeren ürünlerden kaçının."],[/ya[gğ]l[ıi]/i,"Yağlı cilt için niacinamide ve hafif jel nemlendiriciler uygundur. Nemlendiriciyi atlamayın; kuruyan cilt daha çok yağ üretebilir."],[/retinol/i,"Retinol gece kullanılır, düşük dozla başlanır ve gündüz güneş koruyucu şarttır. Hamilelikte önerilmez."],[/hamile|emzir/i,"Hamilelikte retinoidler ve kritik uyarılı ürünlerden kaçının. Profilinizde hamilelik seçiliyse Etiket bu ürünlerde ek uyarı gösterir. Doktorunuza danışın."],[/tpo/i,"TPO, jel ojelerde kullanılan bir fotoinisiyatördü; AB'de 2025'ten itibaren kozmetikte yasaklandı. Eski stoklara dikkat edin."]],
+en:[[/hema/i,"HEMA is a monomer used in gel and acrylic nails. ECHA classifies it as a skin sensitizer and it's the most common gel-nail allergen. In the EU it's for professional use only. If you're allergic, look for HEMA-free products and keep product off the skin."],[/paraben/i,"Parabens are preservatives. Methyl- and ethylparaben are freely allowed in the EU; butyl- and propylparaben have concentration limits. Etiket shows limited parabens as \"restricted\"."],[/fragrance|perfume|scent/i,"\"Parfum\" is a mixture; in the EU 26 fragrance allergens must be listed separately. For sensitive skin, fragrance-free is recommended."],[/dry/i,"For dry skin look for glycerin, hyaluronic acid, ceramides and squalane; avoid alcohol and sulfates."],[/oily/i,"For oily skin, niacinamide and light gel moisturizers work well. Don't skip moisturizer; dried-out skin can produce more oil."],[/retinol/i,"Use retinol at night, start low, and wear sunscreen in the day. Not recommended in pregnancy."],[/pregnan|breastfeed/i,"During pregnancy avoid retinoids and products with critical warnings. If pregnancy is set in your profile, Etiket adds an extra warning on those products. Ask your doctor."],[/tpo/i,"TPO was a photoinitiator in gel polish; it's banned in EU cosmetics from 2025. Watch out for old stock."]]};
+let chat=S.get("chat",[]);
+V.assistant=()=>{nav("home");render(`<div class="screen">${topbar(t("assistant"))}<div class="chips">${t("quick").map(q=>`<button class="pill sm" onclick="ask(this.textContent)">${q}</button>`).join("")}</div>
+  <div style="display:flex;flex-direction:column;gap:8px" id="chat"><div class="msg ai">${t("aiHello")}</div>${chat.map(m=>`<div class="msg ${m.me?'me':'ai'}">${esc(m.t)}</div>`).join("")}</div>
+  <div class="input"><input id="qq" placeholder="${t("askPh")}" onkeydown="if(event.key==='Enter')ask()"><button class="pill on sm" onclick="ask()">${t("send")}</button></div>
+  <button class="pill" onclick="chat=[];S.set('chat',chat);V.assistant()">${t("clearChat")}</button>${disc()}</div>`);window.scrollTo(0,document.body.scrollHeight)};
+window.ask=async q=>{q=q||document.getElementById("qq").value.trim();if(!q)return;const hit=FAQ[lang].find(([re])=>re.test(q));const key=Object.keys(ING).find(k=>k.length>4&&q.toUpperCase().includes(k.split(" ")[0]));
+  /* Katman 1: kurallar */
+  let a=hit?hit[1]:key?`${ING[key].name}: ${ING[key].fn[LI()]}. ${ING[key].note?ING[key].note[LI()]:""}`:null;
+  chat.push({me:true,t:q});
+  /* Katman 2: ücretsiz API (Worker) */
+  if(!a&&profile.aiUrl){chat.push({me:false,t:t("aiThinking"),tmp:true});S.set("chat",chat.filter(m=>!m.tmp));V.assistant();
+    const ctx=scans.slice(0,1).map(id=>PRODUCTS.find(p=>p.id===id)).filter(Boolean).map(p=>`${pname(p)}: ${p.inci.join(", ")}`).join("\n");
+    try{const ctrl=new AbortController();setTimeout(()=>ctrl.abort(),15000);
+      const r=await fetch(profile.aiUrl,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({q,lang,context:ctx}),signal:ctrl.signal});
+      const j=await r.json();if(r.ok&&j.answer)a=j.answer.trim()+"\n\n"+t("aiSrc")}catch(e){}
+    chat=chat.filter(m=>!m.tmp)}
+  /* Katman 3 yedek: sabit yanıt */
+  chat.push({me:false,t:a||t("aiFallback")});S.set("chat",chat);V.assistant()};
+
+V.add=()=>{nav("scan");const bar=(location.hash.split("bar=")[1]||"");const TRC=L.tr.cats;
+  render(`<div class="screen">${topbar(t("addProduct").toUpperCase())}<h1>${t("addT")}</h1><p class="muted">${t("addD")}</p>
+    <div class="input"><input id="an" placeholder="${t("prodName")}"></div><div class="input"><input id="ab" inputmode="numeric" placeholder="${t("barcode")}" value="${esc(bar)}"></div>
+    <div class="chips" id="ac">${t("cats").map((s,i)=>`<button class="pill ${i===0?'on':''}" data-k="${TRC[i]}" onclick="[...this.parentNode.children].forEach(x=>x.classList.remove('on'));this.classList.add('on')">${s}</button>`).join("")}</div>
+    <textarea id="ai" placeholder="${t("inciPh")}"></textarea>
+    <button class="btn" onclick="addProduct()">${t("addBtn")}${I.arrow}</button><p class="small">${t("obfNote")}</p></div>`)};
+window.addProduct=()=>{const name=document.getElementById("an").value.trim(),bar=document.getElementById("ab").value.trim(),s=document.querySelector("#ac .on").dataset.k,inci=document.getElementById("ai").value.split(/[,;\n]/).map(x=>x.trim()).filter(Boolean);if(!name||!inci.length)return toast(t("needNameInci"));const cat=["Jel oje","Oje","Akrilik"].includes(s)?"nail":s==="Şampuan"?"hair":"skin";const p={id:"c"+Date.now(),bar,name,brand:t("userAdded"),cat,sub:s,inci,claims:[],custom:true};PRODUCTS.push(p);customProducts.push(p);S.set("custom",customProducts);toast(t("added"));location.hash="#/product/"+p.id};
+
+V.history=()=>{nav("home");render(`<div class="screen">${topbar(t("historyT").toUpperCase())}<h1>${t("historyT")}</h1><div class="list">${scans.map(id=>PRODUCTS.find(p=>p.id===id)).filter(Boolean).map(p=>{const r=scoreProduct(p,profile);return `<a class="item" href="#/product/${p.id}"><span class="thumb" style="${p.img?`background:url(${esc(p.img)}) center/cover`:``}"></span><span class="col"><span class="title">${esc(pname(p))}</span><span class="muted">${esc(sub(p.sub))}</span></span>${badge(r)}</a>`}).join("")||`<div class="note tint">${t("noScans")}</div>`}</div></div>`)};
+
+V.report=id=>{nav("scan");render(`<div class="screen">${topbar(t("reportT").toUpperCase())}<h1>${t("reportT")}</h1><p class="muted">${t("reportD")}</p><div class="chips">${t("reportOpts").map((s,i)=>`<button class="pill ${i===0?'on':''}" onclick="[...this.parentNode.children].forEach(x=>x.classList.remove('on'));this.classList.add('on')">${s}</button>`).join("")}</div><textarea placeholder="${t("reportPh")}"></textarea><button class="btn" onclick="toast(t('reported'));history.back()">${t("sendBtn")}</button></div>`)};
+
+V.profile=()=>{nav("profile");const skinName=profile.skin.length?profile.skin.map(s=>t("skins")[L.tr.skins.indexOf(s)]).join(", "):null,hn=profile.hair.length?profile.hair.map(s=>t("hairs")[L.tr.hairs.indexOf(s)]).join(", "):null;
+  render(`<div class="screen"><h1>${t("profileT")}</h1>
+  <div class="card row"><span class="badge" style="background:var(--grad);color:#fff;width:54px;height:54px;font-size:18px">${esc((profile.name||"E")[0].toUpperCase())}</span><span class="col"><span class="title">${esc(profile.name||t("user"))}</span><span class="muted">${[skinName,hn].filter(Boolean).join(" · ")||t("incomplete")}</span></span><a class="pill sm" href="#/onboarding/1">${t("edit")}</a></div>
+  <div class="card"><span class="title">${t("allergies")}</span><div class="chips" style="margin-top:8px">${profile.allergies.map(a=>`<span class="pill sm" style="background:var(--surface2)">${esc(t("allergyList")[L.tr.allergyList.indexOf(a)]||a)}</span>`).join("")||`<span class="muted">${t("none")}</span>`}</div></div>
+  <h2>${t("settings")}</h2><div class="list">
+    <label class="sw"><span>${t("lang")}</span><select onchange="setLang(this.value,'profile')"><option value="tr" ${lang==='tr'?'selected':''}>Türkçe</option><option value="en" ${lang==='en'?'selected':''}>English</option></select></label>
+    <label class="sw"><span class="col"><span>${t("region")}</span><span class="muted">${t("regionD")}</span></span><select onchange="profile.region=this.value;S.set('profile',profile);toast(t('saved'))"><option value="TR" ${profile.region==='TR'?'selected':''}>Türkiye (TİTCK)</option><option value="EU" ${profile.region==='EU'?'selected':''}>EU (CosIng)</option></select></label>
+    <label class="sw"><span class="col"><span>${t("dark")}</span><span class="muted">${t("darkD")}</span></span><input type="checkbox" ${document.documentElement.dataset.theme==='dark'?'checked':''} onchange="document.documentElement.dataset.theme=this.checked?'dark':'light';S.set('theme',this.checked?'dark':'light')"></label>
+    <label class="sw"><span class="col"><span>${t("proMode")}</span><span class="muted">${t("proModeD")}</span></span><input type="checkbox" ${profile.pro?'checked':''} onchange="profile.pro=this.checked;S.set('profile',profile)"></label>
+    <label class="sw" style="flex-direction:column;align-items:stretch;gap:8px"><span class="col"><span>${t("aiUrl")}</span><span class="muted">${t("aiUrlD")}</span></span><span class="input" style="min-height:46px"><input placeholder="${t("aiPh")}" value="${esc(profile.aiUrl||"")}" onchange="profile.aiUrl=this.value.trim();S.set('profile',profile);toast(t('saved'))"></span></label>
+    <label class="sw"><span class="col"><span>${t("pregMode")}</span><span class="muted">${t("pregModeD")}</span></span><input type="checkbox" ${profile.pregnant?'checked':''} onchange="profile.pregnant=this.checked;S.set('profile',profile)"></label>
+  </div>
+  <h2>${t("dataT")}</h2><div class="card"><p class="muted">${t("dataD")}${SOURCES.join(", ")}. ${t("obf")}</p></div>
+  <button class="btn ghost" onclick="if(confirm(t('confirmDel'))){Object.keys(localStorage).filter(k=>k.startsWith('etiket:')).forEach(k=>localStorage.removeItem(k));location.reload()}">${t("deleteData")}</button>
+  <p class="small">${t("version")}</p></div>`)};
+
+/* ===================== YÖNLENDİRME ===================== */
+function render(h){document.getElementById("app").innerHTML=h;window.scrollTo(0,0)}
+function route(){stopCam();const h=location.hash.replace(/^#\/?/,"")||"home";const [path]=h.split("?");const [r,...a]=path.split("/");
+  if(!profile.done&&r!=="onboarding"){location.hash="#/onboarding/1";return}(V[r]||V.home)(...a.map(decodeURIComponent))}
+window.addEventListener("hashchange",route);
+try{const th=S.get("theme",null);if(th)document.documentElement.dataset.theme=th}catch(e){}
+document.documentElement.lang=lang;route();
+if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
