@@ -1,14 +1,14 @@
 {
-  "name": "Etiket – Kozmetik İçerik Tarayıcı",
-  "short_name": "Etiket",
+  "name": "SkinSnap – Kozmetik İçerik Tarayıcı",
+  "short_name": "SkinSnap",
   "description": "Kozmetik, saç ve tırnak ürünlerinin içeriğini tarar; şeffaf dikkat puanı verir.",
   "lang": "tr",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#FBF7F9",
-  "theme_color": "#2A1E33",
+  "background_color": "#F8F5EC",
+  "theme_color": "#8FA6D9",
   "categories": [
     "health",
     "lifestyle",
